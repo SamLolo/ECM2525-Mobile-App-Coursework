@@ -20,13 +20,14 @@ public class Departures extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         ArrayList<ServiceData> services = getServices("EXD");
-        StationAdapter adapter = new StationAdapter(services);
+        StationAdapter adapter = new StationAdapter(this, services);
         recyclerView.setAdapter(adapter);
     }
 
     private ArrayList<ServiceData> getServices(String crs) {
-        ArrayList<ServiceData> services = new ArrayList<ServiceData>();
         System.out.println(BuildConfig.RailAPIKey);
+
+        ArrayList<ServiceData> services = new ArrayList<ServiceData>();
         for (int i = 0; i<10; i++) {
             services.add(new ServiceData());
         }

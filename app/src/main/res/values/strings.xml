@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Railway Information UK</string>
     <string name="platform">Platform</string>
+    <string name="via">Via %1$s</string>
+    <string name="operated_by">Operated by %1$s</string>
+    <string name="exp">Exp %1$s</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="coaches">%1$d Coaches</string>
+    <string name="vertical_dash">|</string>
 </resources>
