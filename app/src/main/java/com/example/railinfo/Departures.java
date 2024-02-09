@@ -7,7 +7,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Departures extends AppCompatActivity {
 
@@ -25,11 +44,24 @@ public class Departures extends AppCompatActivity {
     }
 
     private ArrayList<ServiceData> getServices(String crs) {
-        System.out.println(BuildConfig.RailAPIKey);
 
         ArrayList<ServiceData> services = new ArrayList<ServiceData>();
-        for (int i = 0; i<10; i++) {
-            services.add(new ServiceData());
+        ExecutorService pool = Executors.newFixedThreadPool(3);
+        Callable<JSONObject> callable = new APITask("");
+        Future<JSONObject> future = pool.submit(callable);
+        JSONObject json = null;
+        try {
+            json = future.get();
+            if (json != null) {
+                JSONArray servicesJson = json.getJSONArray("trainServices");
+
+                // Create Service Data objects and return services array list
+                for (int i = 0; i < servicesJson.length(); i++) {
+                    services.add(new ServiceData(servicesJson.getJSONObject(i)));
+                }
+            }
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
         return services;
     }

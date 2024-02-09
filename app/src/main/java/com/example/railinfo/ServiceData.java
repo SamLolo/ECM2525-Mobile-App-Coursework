@@ -1,5 +1,7 @@
 package com.example.railinfo;
 
+import org.json.JSONObject;
+
 public class ServiceData {
     private final String origin;
     private final String destination;
@@ -13,7 +15,7 @@ public class ServiceData {
     private Boolean cancelled = false;
     private Integer length = null;
 
-    public ServiceData() {
+    public ServiceData(JSONObject data) {
         origin = "Paignton";
         destination = "Exmouth";
         via = "Exeter Central";
