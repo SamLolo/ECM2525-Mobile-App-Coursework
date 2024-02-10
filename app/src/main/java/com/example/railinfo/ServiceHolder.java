@@ -13,14 +13,14 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
     private final TextView title_main;
     private final TextView title_secondary;
     private final TextView subtitle;
-    private final TextView departure_time;
-    private final TextView status;
-    private final TextView platform;
+    private final TextView time_view;
+    private final TextView status_view;
+    private final TextView platform_view;
     private final TextView dash1;
     private final TextView dash2;
-    private final TextView journey_time;
-    private final TextView coaches;
-    private final TextView operator;
+    private final TextView sub_info1;
+    private final TextView sub_info2;
+    private final TextView sub_info3;
 
 
     public ServiceHolder(View view, Context context) {
@@ -29,14 +29,14 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
         title_main = view.findViewById(R.id.txt_destination);
         title_secondary = view.findViewById(R.id.txt_destination_with_via);
         subtitle = view.findViewById(R.id.txt_via);
-        departure_time = view.findViewById(R.id.txt_depature);
-        status = view.findViewById(R.id.txt_status);
-        platform = view.findViewById(R.id.txt_platform_no);
+        time_view = view.findViewById(R.id.txt_departure);
+        status_view = view.findViewById(R.id.txt_status);
+        platform_view = view.findViewById(R.id.txt_platform_no);
         dash1 = view.findViewById(R.id.txt_dash_1);
         dash2 = view.findViewById(R.id.txt_dash_2);
-        journey_time = view.findViewById(R.id.txt_time);
-        coaches = view.findViewById(R.id.txt_length);
-        operator = view.findViewById(R.id.txt_operator);
+        sub_info1 = view.findViewById(R.id.txt_subinfo_1);
+        sub_info2 = view.findViewById(R.id.txt_subinfo_2);
+        sub_info3 = view.findViewById(R.id.txt_subinfo_3);
    }
     public void setDestination(String name) {
         title_main.setText(name);
@@ -48,43 +48,43 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
     }
 
     public void setDepartureTime(String time) {
-        departure_time.setText(time);
+        time_view.setText(time);
     }
 
     public void setCancelled() {
-        status.setText(context.getString(R.string.cancelled));
+        status_view.setText(context.getString(R.string.cancelled));
         int colour = context.getColor(R.color.cancelled);
-        status.setTextColor(colour);
+        status_view.setTextColor(colour);
     }
 
     public void setDelayed(String exp_time) {
-        status.setText(context.getString(R.string.exp, exp_time));
+        status_view.setText(context.getString(R.string.exp, exp_time));
         int colour = context.getColor(R.color.delayed);
-        status.setTextColor(colour);
+        status_view.setTextColor(colour);
     }
 
     public void setPlatform(Integer platform_num) {
-        platform.setText(String.format(Locale.getDefault(), "%d", platform_num));
+        platform_view.setText(String.format(Locale.getDefault(), "%d", platform_num));
     }
 
     public void setOperator(String name) {
-        operator.setText(context.getString(R.string.operated_by, name));
+        sub_info3.setText(context.getString(R.string.operated_by, name));
     }
 
     public void setFormationLength(Integer length) {
-        coaches.setText(context.getString(R.string.coaches, length));
+        sub_info2.setText(context.getString(R.string.coaches, length));
         dash2.setVisibility(View.VISIBLE);
-        coaches.setVisibility(View.VISIBLE);
+        sub_info2.setVisibility(View.VISIBLE);
     }
 
     public void removeFormationLength() {
         dash2.setVisibility(View.GONE);
-        coaches.setVisibility(View.GONE);
+        sub_info2.setVisibility(View.GONE);
     }
 
     public void removeJourneyTime() {
         dash1.setVisibility(View.GONE);
-        journey_time.setVisibility(View.GONE);
+        sub_info1.setVisibility(View.GONE);
     }
 }
 

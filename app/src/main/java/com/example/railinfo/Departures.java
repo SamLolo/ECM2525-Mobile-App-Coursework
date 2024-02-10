@@ -34,7 +34,6 @@ public class Departures extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departures);
-        System.out.println("Output");
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -47,7 +46,7 @@ public class Departures extends AppCompatActivity {
 
         ArrayList<ServiceData> services = new ArrayList<ServiceData>();
         ExecutorService pool = Executors.newFixedThreadPool(3);
-        Callable<JSONObject> callable = new APITask("");
+        Callable<JSONObject> callable = new ServicesAPI();
         Future<JSONObject> future = pool.submit(callable);
         JSONObject json = null;
         try {

@@ -12,11 +12,9 @@ import java.util.concurrent.Callable;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class APITask implements Callable<JSONObject> {
-    String uri;
+public class ServicesAPI implements Callable<JSONObject> {
 
-    public APITask (String url) {
-        this.uri = url;
+    public ServicesAPI () {
     }
 
     @Override
@@ -24,7 +22,7 @@ public class APITask implements Callable<JSONObject> {
         StringBuilder response = new StringBuilder();
         try {
             // Create HTTPS connection to Rail Data API
-            URL url = new URL("https://api1.raildata.org.uk/1010-live-departure-board-dep/LDBWS/api/20220120/GetDepBoardWithDetails/EXD");
+            URL url = new URL("https://api1.raildata.org.uk/1010-live-arrival-and-departure-boards-arr-and-dep/LDBWS/api/20220120/GetArrDepBoardWithDetails/EXD");
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("x-apikey", BuildConfig.RailAPIKey);

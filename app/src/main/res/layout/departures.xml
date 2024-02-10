@@ -17,11 +17,11 @@
         android:textColor="@color/secondary_text"
         android:textSize="15sp"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/txt_time"
+        app:layout_constraintStart_toEndOf="@+id/txt_subinfo_1"
         app:layout_constraintTop_toBottomOf="@+id/txt_status" />
 
     <TextView
-        android:id="@+id/txt_depature"
+        android:id="@+id/txt_departure"
         android:layout_width="65dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
@@ -41,7 +41,7 @@
         android:textColor="@color/on_time"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_depature" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_departure" />
 
     <TextView
         android:id="@+id/txt_destination"
@@ -50,7 +50,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="9dp"
-        android:text="Exmouth (EXM)"
+        android:text="Exmouth (EXM) &amp; Exeter St Davids (EXD)"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         android:textSize="30sp"
@@ -58,7 +58,7 @@
         app:autoSizeMinTextSize="10sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform"
-        app:layout_constraintStart_toEndOf="@+id/txt_depature"
+        app:layout_constraintStart_toEndOf="@+id/txt_departure"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_platform" />
 
     <TextView
-        android:id="@+id/txt_time"
+        android:id="@+id/txt_subinfo_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_status" />
 
     <TextView
-        android:id="@+id/txt_length"
+        android:id="@+id/txt_subinfo_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_status" />
 
     <TextView
-        android:id="@+id/txt_operator"
+        android:id="@+id/txt_subinfo_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -126,7 +126,7 @@
         android:textAlignment="center"
         android:textColor="@color/secondary_text"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/txt_length"
+        app:layout_constraintStart_toEndOf="@+id/txt_subinfo_2"
         app:layout_constraintTop_toBottomOf="@+id/txt_destination" />
 
     <TextView
@@ -140,7 +140,7 @@
         android:textColor="@color/main_text"
         android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform"
-        app:layout_constraintStart_toEndOf="@+id/txt_depature"
+        app:layout_constraintStart_toEndOf="@+id/txt_departure"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
