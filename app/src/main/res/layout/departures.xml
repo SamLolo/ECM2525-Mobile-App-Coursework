@@ -50,7 +50,6 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="9dp"
-        android:text="Exmouth (EXM) &amp; Exeter St Davids (EXD)"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         android:textSize="30sp"
@@ -77,7 +76,7 @@
     <TextView
         android:id="@+id/txt_platform_no"
         android:layout_width="60dp"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="16dp"
         android:text="1"
         android:textAlignment="center"
@@ -136,9 +135,10 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="9dp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeTextType="uniform"
         android:textAlignment="center"
         android:textColor="@color/main_text"
-        android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform"
         app:layout_constraintStart_toEndOf="@+id/txt_departure"
         app:layout_constraintTop_toTopOf="parent" />

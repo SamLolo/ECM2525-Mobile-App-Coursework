@@ -4,22 +4,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
+
 public class ServiceData {
     private final String id;
     private final JSONArray origin;
     private final JSONArray destination;
     private final String scheduled_arr;
     private final String estimated_arr;
-    private Boolean arrival = false;
     private final String scheduled_dep;
     private final String estimated_dep;
-    private Boolean departure = false;
     private final String operator;
     private final Boolean cancelled;
     private final Integer length;
     private final String platform;
+    private JSONArray previous_calls = new JSONArray();
+    private JSONArray future_calls = new JSONArray();
 
     public ServiceData(JSONObject data) {
+        // Set service attributes from JSON object passed in
         id = data.optString("serviceID");
         origin = data.optJSONArray("origin");
         destination = data.optJSONArray("destination");
@@ -27,17 +32,23 @@ public class ServiceData {
         length = data.optInt("length");
         cancelled = data.optBoolean("isCancelled");
         platform = data.optString("platform");
-
         scheduled_dep = data.optString("std");
         estimated_dep = data.optString("etd");
-        if (!scheduled_dep.equals("") && !estimated_dep.equals("")) {
-            departure = true;
-        }
-
         scheduled_arr = data.optString("sta");
         estimated_arr = data.optString("eta");
-        if (!scheduled_arr.equals("") && !estimated_arr.equals("")) {
-            arrival = true;
+
+        // Try to set previous calls JSON array, catching an error if it occurs so that the attribute gets left as an empty array
+        try {
+            previous_calls = data.getJSONArray("previousCallingPoints").getJSONObject(0).getJSONArray("callingPoint");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Try to set future calls JSON array, catching an error if it occurs so that the attribute gets left as an empty array
+        try {
+            future_calls = data.getJSONArray("subsequentCallingPoints").getJSONObject(0).getJSONArray("callingPoint");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -65,6 +76,24 @@ public class ServiceData {
         return sb.toString();
     }
 
+    public Boolean hasVia() {
+        JSONObject dest = destination.optJSONObject(0);
+        if (dest != null) {
+            return !dest.isNull("via");
+        } else {
+            return false;
+        }
+    }
+
+    public String getVia() {
+        try {
+            return destination.getJSONObject(0).optString("via");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     public String getDestinationString() {
         StringBuilder sb = new StringBuilder();
         int i;
@@ -86,11 +115,11 @@ public class ServiceData {
     }
 
     public Boolean isArrival() {
-        return arrival;
+        return (!scheduled_arr.equals("") && !estimated_arr.equals(""));
     }
 
     public Boolean isDeparture() {
-        return departure;
+        return (!scheduled_dep.equals("") && !estimated_dep.equals(""));
     }
 
     public String getEstimatedArrival() {
@@ -131,5 +160,41 @@ public class ServiceData {
 
     public Integer getFormationLength() {
         return length;
+    }
+
+    public Boolean isDelayedDeparture() {
+        return !estimated_dep.equals("On time");
+    }
+
+    public Boolean isDelayedArrival() {
+        return !estimated_arr.equals("On time");
+    }
+
+    public String getTimeToDestination() {
+        if (future_calls.length() >= 1) {
+            JSONObject final_call = future_calls.optJSONObject(future_calls.length()-1);
+            if (final_call != null) {
+                if (!final_call.isNull("st")) {
+                    String final_time = final_call.optString("st");
+                    LocalTime t1 = LocalTime.parse(scheduled_dep);
+                    LocalTime t2 = LocalTime.parse(final_time);
+                    long minutes = ChronoUnit.MINUTES.between(t1, t2);
+                    if (minutes < 0) {
+                        minutes = 60*24 - minutes;
+                    }
+                    if (minutes >= 60) {
+                        int hours = (int)(minutes % 60);
+                        if (hours == 1) {
+                            return String.format(Locale.getDefault(),"1 hour, %d mins", Math.toIntExact(minutes - 60));
+                        } else {
+                            return String.format(Locale.getDefault(),"%d hours, %d mins", hours, Math.toIntExact(minutes - hours*60));
+                        }
+                    } else {
+                        return String.format(Locale.getDefault(),"%d mins", Math.toIntExact(minutes));
+                    }
+                }
+            }
+        }
+        return "N/A";
     }
 }

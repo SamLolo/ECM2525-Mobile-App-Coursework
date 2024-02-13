@@ -8,13 +8,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class ServicesAPI implements Callable<JSONObject> {
+    private final String crs;
 
-    public ServicesAPI () {
+    public ServicesAPI (String crs) {
+        this.crs = crs;
     }
 
     @Override
@@ -22,7 +25,8 @@ public class ServicesAPI implements Callable<JSONObject> {
         StringBuilder response = new StringBuilder();
         try {
             // Create HTTPS connection to Rail Data API
-            URL url = new URL("https://api1.raildata.org.uk/1010-live-arrival-and-departure-boards-arr-and-dep/LDBWS/api/20220120/GetArrDepBoardWithDetails/EXD");
+            String uri = String.format(Locale.US, "https://api1.raildata.org.uk/1010-live-arrival-and-departure-boards-arr-and-dep/LDBWS/api/20220120/GetArrDepBoardWithDetails/%s", crs);
+            URL url = new URL(uri);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("x-apikey", BuildConfig.RailAPIKey);

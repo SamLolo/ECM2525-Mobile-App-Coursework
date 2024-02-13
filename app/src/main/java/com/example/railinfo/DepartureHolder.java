@@ -6,9 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Locale;
-
-public class ServiceHolder extends RecyclerView.ViewHolder {
+public class DepartureHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private final TextView title_main;
     private final TextView title_secondary;
@@ -23,7 +21,7 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
     private final TextView sub_info3;
 
 
-    public ServiceHolder(View view, Context context) {
+    public DepartureHolder(View view, Context context) {
         super(view);
         this.context = context;
         title_main = view.findViewById(R.id.txt_destination);
@@ -44,10 +42,10 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
 
     public void setDestinationWithVia(String name, String via) {
         title_secondary.setText(name);
-        subtitle.setText(context.getString(R.string.via, via));
+        subtitle.setText(via);
     }
 
-    public void setDepartureTime(String time) {
+    public void setTime(String time) {
         time_view.setText(time);
     }
 
@@ -63,28 +61,59 @@ public class ServiceHolder extends RecyclerView.ViewHolder {
         status_view.setTextColor(colour);
     }
 
-    public void setPlatform(Integer platform_num) {
-        platform_view.setText(String.format(Locale.getDefault(), "%d", platform_num));
+    public void setPlatform(String platform) {
+        platform_view.setText(platform);
     }
 
     public void setOperator(String name) {
         sub_info3.setText(context.getString(R.string.operated_by, name));
+        if (sub_info3.getVisibility() != View.VISIBLE) {
+            addInfo3();
+        }
     }
 
     public void setFormationLength(Integer length) {
         sub_info2.setText(context.getString(R.string.coaches, length));
+        if (sub_info2.getVisibility() != View.VISIBLE) {
+            addInfo2();
+        }
+    }
+
+    public void setJourneyTime(String time) {
+        sub_info1.setText(time);
+        if (sub_info1.getVisibility() != View.VISIBLE) {
+            addInfo1();
+        }
+    }
+
+    public void addInfo1() {
+        dash1.setVisibility(View.VISIBLE);
+        sub_info1.setVisibility(View.VISIBLE);
+    }
+
+    public void addInfo2() {
         dash2.setVisibility(View.VISIBLE);
         sub_info2.setVisibility(View.VISIBLE);
     }
 
-    public void removeFormationLength() {
+    public void addInfo3() {
+        dash2.setVisibility(View.VISIBLE);
+        sub_info3.setVisibility(View.VISIBLE);
+    }
+
+    public void removeInfo1() {
+        dash1.setVisibility(View.GONE);
+        sub_info1.setVisibility(View.GONE);
+    }
+
+    public void removeInfo2() {
         dash2.setVisibility(View.GONE);
         sub_info2.setVisibility(View.GONE);
     }
 
-    public void removeJourneyTime() {
-        dash1.setVisibility(View.GONE);
-        sub_info1.setVisibility(View.GONE);
+    public void removeInfo3() {
+        dash2.setVisibility(View.GONE);
+        sub_info3.setVisibility(View.GONE);
     }
 }
 
