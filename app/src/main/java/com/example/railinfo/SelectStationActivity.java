@@ -24,11 +24,24 @@ import java.util.List;
 
 public class SelectStationActivity extends AppCompatActivity {
 
+    private static JSONObject stations;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_station);
 
+        loadStations();
+        List<String> names_list = getStationNames();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, names_list);
+
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.enter_station_autocomplete);
+        textView.setAdapter(adapter);
+        textView.setOnItemClickListener(new AutoCompleteListener());
+    }
+
+    private void loadStations() {
         AssetManager assets = getAssets();
         StringBuilder json = new StringBuilder();
         try {
@@ -43,43 +56,55 @@ public class SelectStationActivity extends AppCompatActivity {
             throw new RuntimeException("Unable to load stations!");
         }
 
-        JSONObject stations;
         try {
             stations = new JSONObject(json.toString());
         } catch (JSONException ex) {
             ex.printStackTrace();
             throw new RuntimeException("Unable to load stations!");
         }
+    }
 
-        List<String> names_list = new ArrayList<>();
-        JSONArray names;
+    private ArrayList<String> getStationNames() throws RuntimeException {
+        ArrayList<String> names = new ArrayList<>();
+        JSONArray names_array;
         try {
-            names = stations.toJSONArray(stations.names());
+            names_array = stations.toJSONArray(stations.names());
         } catch (JSONException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("Unable to load stations!");
+            throw new RuntimeException("Unable to get station names!");
         }
 
-        if (names != null) {
-            for (int i = 0; !names.isNull(i); i++) {
-                names_list.add(names.optString(i));
+        if (names_array != null) {
+            for (int i = 0; !names_array.isNull(i); i++) {
+                names.add(names_array.optString(i));
             }
         } else {
-            throw new RuntimeException("Unable to load stations!");
+            throw new RuntimeException("Unable to get station names!");
         }
+        return names;
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, names_list);
-
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.enter_station_autocomplete);
-        textView.setAdapter(adapter);
-        textView.setOnItemClickListener(new AutoCompleteListener());
+    private static String getCrs(String station) throws JSONException {
+        JSONArray station_names = stations.toJSONArray(stations.names());
+        JSONObject inverted_stations = stations.names().toJSONObject(station_names);
+        return inverted_stations.getString(station);
     }
 
     static class AutoCompleteListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TextView item = (TextView)view;
-            System.out.println(item.getText());
+            String selected = (String)item.getText();
+            System.out.println(selected);
+
+            String crs = "";
+            try {
+                crs = getCrs(selected);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+                throw new RuntimeException("Unable to convert station name!");
+            }
+            System.out.println(crs);
         }
     }
 }
