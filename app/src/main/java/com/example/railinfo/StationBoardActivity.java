@@ -1,12 +1,12 @@
 package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,8 +29,8 @@ public class StationBoardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String crs = intent.getStringExtra("crs");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(intent.getStringExtra("station"));
+        TextView title = findViewById(R.id.txt_station_name);
+        title.setText(intent.getStringExtra("station"));
 
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -45,7 +45,7 @@ public class StationBoardActivity extends AppCompatActivity {
 
         ArrayList<ServiceData> services = new ArrayList<ServiceData>();
         ExecutorService pool = Executors.newFixedThreadPool(3);
-        Callable<JSONObject> callable = new ServicesAPI("EXD");
+        Callable<JSONObject> callable = new StationBoardAPI(crs);
         Future<JSONObject> future = pool.submit(callable);
         JSONObject json = null;
         try {

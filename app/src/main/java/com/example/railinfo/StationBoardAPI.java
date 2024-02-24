@@ -13,10 +13,10 @@ import java.util.concurrent.Callable;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class ServicesAPI implements Callable<JSONObject> {
+public class StationBoardAPI implements Callable<JSONObject> {
     private final String crs;
 
-    public ServicesAPI (String crs) {
+    public StationBoardAPI (String crs) {
         this.crs = crs;
     }
 

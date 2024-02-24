@@ -179,15 +179,21 @@ public class ServiceData {
                     LocalTime t1 = LocalTime.parse(scheduled_dep);
                     LocalTime t2 = LocalTime.parse(final_time);
                     long minutes = ChronoUnit.MINUTES.between(t1, t2);
+
                     if (minutes < 0) {
                         minutes = 60*24 - minutes;
                     }
+
                     if (minutes >= 60) {
-                        int hours = (int)(minutes % 60);
-                        if (hours == 1) {
+                        int hours = Math.toIntExact(minutes / 60);
+                        if (hours == 1 && minutes == 60) {
+                            return "1 hour";
+                        } else if (hours == 1) {
                             return String.format(Locale.getDefault(),"1 hour, %d mins", Math.toIntExact(minutes - 60));
+                        } else if (Math.toIntExact(minutes - (hours * 60L)) != 0) {
+                            return String.format(Locale.getDefault(), "%d hours, %d mins", hours, Math.toIntExact(minutes - (hours * 60L)));
                         } else {
-                            return String.format(Locale.getDefault(),"%d hours, %d mins", hours, Math.toIntExact(minutes - hours*60));
+                            return String.format(Locale.getDefault(), "%d hours", hours);
                         }
                     } else {
                         return String.format(Locale.getDefault(),"%d mins", Math.toIntExact(minutes));
