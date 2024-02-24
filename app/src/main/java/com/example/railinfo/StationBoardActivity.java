@@ -1,9 +1,11 @@
 package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.json.JSONArray;
@@ -23,10 +25,18 @@ public class StationBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_board);
+
+        Intent intent = getIntent();
+        String crs = intent.getStringExtra("crs");
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(intent.getStringExtra("station"));
+
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        ArrayList<ServiceData> services = getServices("EXD");
+
+        ArrayList<ServiceData> services = getServices(crs);
         DepartureAdapter adapter = new DepartureAdapter(this, services);
         recyclerView.setAdapter(adapter);
     }

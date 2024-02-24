@@ -2,6 +2,7 @@ package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -31,7 +32,7 @@ public class SelectStationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_station);
 
-        loadStations();
+        stations = loadStations();
         List<String> names_list = getStationNames();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, names_list);
@@ -41,14 +42,14 @@ public class SelectStationActivity extends AppCompatActivity {
         textView.setOnItemClickListener(new AutoCompleteListener());
     }
 
-    private void loadStations() {
+    public JSONObject loadStations() {
         AssetManager assets = getAssets();
-        StringBuilder json = new StringBuilder();
+        StringBuilder json_string = new StringBuilder();
         try {
             BufferedReader file = new BufferedReader(new InputStreamReader(assets.open("stations.json")));
             String line = null;
             while ((line = file.readLine()) != null) {
-                json.append(line);
+                json_string.append(line);
             }
             file.close();
         } catch (IOException ex) {
@@ -56,12 +57,14 @@ public class SelectStationActivity extends AppCompatActivity {
             throw new RuntimeException("Unable to load stations!");
         }
 
+        JSONObject json;
         try {
-            stations = new JSONObject(json.toString());
+            json = new JSONObject(json_string.toString());
         } catch (JSONException ex) {
             ex.printStackTrace();
             throw new RuntimeException("Unable to load stations!");
         }
+        return json;
     }
 
     private ArrayList<String> getStationNames() throws RuntimeException {
@@ -84,13 +87,13 @@ public class SelectStationActivity extends AppCompatActivity {
         return names;
     }
 
-    private static String getCrs(String station) throws JSONException {
+    private String getCrs(String station) throws JSONException {
         JSONArray station_names = stations.toJSONArray(stations.names());
         JSONObject inverted_stations = stations.names().toJSONObject(station_names);
         return inverted_stations.getString(station);
     }
 
-    static class AutoCompleteListener implements AdapterView.OnItemClickListener {
+    class AutoCompleteListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             TextView item = (TextView)view;
@@ -105,6 +108,15 @@ public class SelectStationActivity extends AppCompatActivity {
                 throw new RuntimeException("Unable to convert station name!");
             }
             System.out.println(crs);
+
+            if (crs.equals("")) {
+                throw new RuntimeException("Unable to convert station name!");
+            } else {
+                Intent intent = new Intent(SelectStationActivity.this, StationBoardActivity.class);
+                intent.putExtra("crs", crs);
+                intent.putExtra("station", selected);
+                startActivity(intent);
+            }
         }
     }
 }
