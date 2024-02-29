@@ -9,4 +9,6 @@
     <string name="search_station">Search for a station</string>
     <string name="choose_station">Or select a previous station</string>
     <string name="enter_station">Enter a station&#8230;</string>
+    <string name="expected">Expected %1$s</string>
+    <string name="to">to</string>
 </resources>

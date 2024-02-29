@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/service_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/service_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="Service Information" />
+
+    <TextView
+        android:id="@+id/service_departure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="21:11"
+        android:textAlignment="center"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+
+    <TextView
+        android:id="@+id/service_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="19dp"
+        android:text="On Time"
+        android:textColor="@color/on_time"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/service_departure"
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+
+    <TextView
+        android:id="@+id/service_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="London Paddington (PAD)"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txt_to"
+        app:layout_constraintTop_toBottomOf="@+id/service_departure" />
+
+    <TextView
+        android:id="@+id/txt_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="21dp"
+        android:text="@string/to"
+        android:textColor="@color/secondary_text"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_departure" />
+
+    <TextView
+        android:id="@+id/service_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="Plymouth (PLY)"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/txt_to"
+        app:layout_constraintTop_toBottomOf="@+id/service_origin" />
+
+    <TextView
+        android:id="@+id/service_platform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="1"
+        android:textColor="@color/main_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+
+    <TextView
+        android:id="@+id/txt_platform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="6dp"
+        android:text="@string/platform"
+        android:textColor="@color/main_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/service_platform"
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+
+    <TextView
+        android:id="@+id/service_via"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:text="Via Bristol Temple Meads"
+        android:textColor="@color/secondary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_destination" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/innner_service_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/top_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_via">
+
+        <TextView
+            android:id="@+id/txt_dash_1"
+            android:layout_width="11dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="11dp"
+            android:text="@string/vertical_dash"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/txt_subinfo_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_subinfo_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="1h 20m"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_subinfo_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="4 coaches"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/txt_dash_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_subinfo_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Operated by Great Western Railway"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/txt_dash_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_dash_2"
+            android:layout_width="11dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="11dp"
+            android:text="@string/vertical_dash"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/txt_subinfo_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/journey_progress_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/outline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_subinfo_1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
