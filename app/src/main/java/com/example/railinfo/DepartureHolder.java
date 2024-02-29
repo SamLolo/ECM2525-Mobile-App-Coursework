@@ -34,9 +34,9 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
         platform_view = view.findViewById(R.id.txt_platform_no);
         dash1 = view.findViewById(R.id.txt_dash_1);
         dash2 = view.findViewById(R.id.txt_dash_2);
-        sub_info1 = view.findViewById(R.id.txt_subinfo_1);
+        sub_info1 = view.findViewById(R.id.service_journey_time);
         sub_info2 = view.findViewById(R.id.txt_subinfo_2);
-        sub_info3 = view.findViewById(R.id.txt_subinfo_3);
+        sub_info3 = view.findViewById(R.id.service_operator);
    }
 
    @Override

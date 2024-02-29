@@ -23,12 +23,12 @@
         android:id="@+id/service_departure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="12dp"
         android:text="21:11"
         android:textAlignment="center"
         android:textColor="@color/main_text"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
 
@@ -37,10 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:text="On Time"
         android:textColor="@color/on_time"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/service_departure"
         app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
 
@@ -61,10 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="19dp"
         android:text="@string/to"
         android:textColor="@color/secondary_text"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/service_departure" />
 
@@ -84,11 +84,11 @@
         android:id="@+id/service_platform"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
         android:text="1"
         android:textColor="@color/main_text"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
 
@@ -96,7 +96,7 @@
         android:id="@+id/txt_platform"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="6dp"
         android:text="@string/platform"
         android:textColor="@color/main_text"
@@ -112,7 +112,7 @@
         android:layout_marginTop="6dp"
         android:text="Via Bristol Temple Meads"
         android:textColor="@color/secondary_text"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/service_destination" />
 
@@ -128,63 +128,32 @@
         app:layout_constraintTop_toBottomOf="@+id/service_via">
 
         <TextView
-            android:id="@+id/txt_dash_1"
-            android:layout_width="11dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="11dp"
-            android:text="@string/vertical_dash"
+            android:id="@+id/service_journey_time"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            android:text="Journey Time: 1h 20m"
             android:textAlignment="center"
             android:textColor="@color/secondary_text"
-            android:textSize="15sp"
-            android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/txt_subinfo_1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txt_subinfo_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:text="1h 20m"
-            android:textColor="@color/secondary_text"
-            android:textSize="15sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_subinfo_2"
-            android:layout_width="wrap_content"
+            android:id="@+id/service_operator"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="4 coaches"
-            android:textColor="@color/secondary_text"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/txt_dash_1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txt_subinfo_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="64dp"
             android:text="Operated by Great Western Railway"
-            android:textColor="@color/secondary_text"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/txt_dash_2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txt_dash_2"
-            android:layout_width="11dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="11dp"
-            android:text="@string/vertical_dash"
             android:textAlignment="center"
             android:textColor="@color/secondary_text"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/txt_subinfo_2"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/service_journey_time" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/journey_progress_view"
@@ -198,6 +167,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_subinfo_1" />
+            app:layout_constraintTop_toBottomOf="@+id/service_operator" />
+
+        <TextView
+            android:id="@+id/service_stops"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="64dp"
+            android:text="Stops: 16"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/service_journey_time"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
