@@ -1,12 +1,13 @@
 package com.example.railinfo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DepartureHolder extends RecyclerView.ViewHolder {
+public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final Context context;
     private final TextView title_main;
     private final TextView title_secondary;
@@ -19,10 +20,11 @@ public class DepartureHolder extends RecyclerView.ViewHolder {
     private final TextView sub_info1;
     private final TextView sub_info2;
     private final TextView sub_info3;
-
+    private ServiceData service = null;
 
     public DepartureHolder(View view, Context context) {
         super(view);
+        view.setOnClickListener(this);
         this.context = context;
         title_main = view.findViewById(R.id.txt_destination);
         title_secondary = view.findViewById(R.id.txt_destination_with_via);
@@ -36,6 +38,23 @@ public class DepartureHolder extends RecyclerView.ViewHolder {
         sub_info2 = view.findViewById(R.id.txt_subinfo_2);
         sub_info3 = view.findViewById(R.id.txt_subinfo_3);
    }
+
+   @Override
+   public void onClick(View view) {
+        System.out.println("Clicked");
+        if (service != null) {
+            Intent intent = new Intent(context, ServiceInfoActivity.class);
+            intent.putExtra("service", service.toString());
+            context.startActivity(intent);
+        } else {
+            System.out.println("Service is null");
+        }
+   }
+
+   public void setService(ServiceData service) {
+        this.service = service;
+   }
+
     public void setDestination(String name) {
         title_main.setText(name);
     }

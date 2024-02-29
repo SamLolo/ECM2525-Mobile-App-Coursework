@@ -1,15 +1,19 @@
 package com.example.railinfo;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 public class ServiceData {
     private final String id;
+    private final JSONObject data;
     private final JSONArray origin;
     private final JSONArray destination;
     private final String scheduled_arr;
@@ -26,6 +30,7 @@ public class ServiceData {
     public ServiceData(JSONObject data) {
         // Set service attributes from JSON object passed in
         id = data.optString("serviceID");
+        this.data = data;
         origin = data.optJSONArray("origin");
         destination = data.optJSONArray("destination");
         operator = data.optString("operator");
@@ -50,6 +55,12 @@ public class ServiceData {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return data.toString();
     }
 
     public String getServiceID() {
