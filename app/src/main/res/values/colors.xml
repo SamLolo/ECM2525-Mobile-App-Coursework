@@ -12,4 +12,6 @@
     <color name="cancelled">#F82020</color>
     <color name="main_text">#FF292929</color>
     <color name="secondary_text">#535353</color>
+    <color name="visited">#2980C5</color>
+    <color name="to_visit">#3C3C3C</color>
 </resources>
