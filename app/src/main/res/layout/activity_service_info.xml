@@ -25,12 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="12dp"
-        android:text="21:11"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar"
+        tools:text="21:11" />
 
     <TextView
         android:id="@+id/service_status"
@@ -38,11 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="16dp"
-        android:text="On Time"
         android:textColor="@color/on_time"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/service_departure"
-        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar"
+        tools:text="On Time" />
 
     <TextView
         android:id="@+id/service_origin"
@@ -50,11 +50,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="London Paddington (PAD)"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/txt_to"
-        app:layout_constraintTop_toBottomOf="@+id/service_departure" />
+        app:layout_constraintTop_toBottomOf="@+id/service_departure"
+        tools:text="London Paddington (PAD)" />
 
     <TextView
         android:id="@+id/txt_to"
@@ -74,11 +74,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
-        android:text="Plymouth (PLY)"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/txt_to"
-        app:layout_constraintTop_toBottomOf="@+id/service_origin" />
+        app:layout_constraintTop_toBottomOf="@+id/service_origin"
+        tools:text="Plymouth (PLY)" />
 
     <TextView
         android:id="@+id/service_platform"
@@ -86,11 +86,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:text="1"
         android:textColor="@color/main_text"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/service_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/service_toolbar"
+        tools:text="4" />
 
     <TextView
         android:id="@+id/txt_platform"
@@ -110,11 +110,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="6dp"
-        android:text="Via Bristol Temple Meads"
         android:textColor="@color/secondary_text"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/service_destination" />
+        app:layout_constraintTop_toBottomOf="@+id/service_destination"
+        tools:text="Via Bristol Temple Meads" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/innner_service_layout"
@@ -129,31 +129,33 @@
 
         <TextView
             android:id="@+id/service_journey_time"
-            android:layout_width="190dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="8dp"
-            android:text="Journey Time: 1h 20m"
-            android:textAlignment="center"
-            android:textColor="@color/secondary_text"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/service_operator"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="64dp"
-            android:text="Operated by Great Western Railway"
+            android:layout_marginEnd="155dp"
             android:textAlignment="center"
             android:textColor="@color/secondary_text"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/service_journey_time" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Journey Time: 1h 20m" />
+
+        <TextView
+            android:id="@+id/service_operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/service_journey_time"
+            tools:text="Operated by Great Western Railway" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/journey_progress_view"
@@ -162,7 +164,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/outline"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -171,16 +173,44 @@
 
         <TextView
             android:id="@+id/service_stops"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
-            android:text="Stops: 16"
             android:textAlignment="center"
             android:textColor="@color/secondary_text"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/service_journey_time"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Stops: 16" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/secondary_text"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Last Updated: 19:27" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/btn_refresh"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/refresh"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/service_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_popup_sync"
+        app:tint="#333232" />
 </androidx.constraintlayout.widget.ConstraintLayout>

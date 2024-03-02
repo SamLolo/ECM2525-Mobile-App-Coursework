@@ -34,13 +34,13 @@
             android:id="@+id/tab_departures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Departures" />
+            android:text="@string/departures" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_arrivals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Arrivals"
+            android:text="@string/arrivals"
             tools:layout_editor_absoluteX="219dp"
             tools:layout_editor_absoluteY="257dp" />
     </com.google.android.material.tabs.TabLayout>
@@ -62,23 +62,25 @@
         android:layout_marginStart="75dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="75dp"
-        android:text="Exeter St David's"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        tools:text="Exeter St David's" />
 
     <ImageButton
         android:id="@+id/btn_station_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
         android:background="#00FFFFFF"
+        android:contentDescription="@string/station_info"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,11 +92,13 @@
         android:id="@+id/btn_refresh_board"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="12dp"
         android:background="#00FFFFFF"
+        android:contentDescription="@string/refresh"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/txt_station_name"
         app:layout_constraintStart_toStartOf="parent"

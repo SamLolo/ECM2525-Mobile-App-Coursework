@@ -7,11 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="on_time">#388F3C</color>
-    <color name="delayed">#E18B22</color>
-    <color name="cancelled">#F82020</color>
+    <color name="on_time">#2C712F</color>
+    <color name="delayed">#AE6000</color>
+    <color name="cancelled">#C60909</color>
     <color name="main_text">#FF292929</color>
     <color name="secondary_text">#535353</color>
-    <color name="visited">#EF274F</color>
+    <color name="visited">#4662FF</color>
     <color name="to_visit">#3C3C3C</color>
 </resources>
