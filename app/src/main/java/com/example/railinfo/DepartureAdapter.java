@@ -50,19 +50,15 @@ public class DepartureAdapter extends RecyclerView.Adapter<DepartureHolder> {
         if (!journeyTime.equals("N/A")) {
             viewHolder.setJourneyTime(journeyTime);
         } else {
-            viewHolder.removeInfo1();
+            viewHolder.removeJourneyTime();
         }
 
         if (service.isCancelled()) {
             viewHolder.setCancelled();
         } else if (service.isDelayedDeparture()) {
             viewHolder.setDelayed(service.getEstimatedDeparture());
-        }
-
-        if (service.hasFormationLength()) {
-            viewHolder.setFormationLength(service.getFormationLength());
         } else {
-            viewHolder.removeInfo2();
+            viewHolder.setOnTime();
         }
     }
 

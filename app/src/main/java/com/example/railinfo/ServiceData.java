@@ -241,7 +241,7 @@ public class ServiceData {
                     long minutes = ChronoUnit.MINUTES.between(t1, t2);
 
                     if (minutes < 0) {
-                        minutes = 60*24 - minutes;
+                        minutes = 60L*24 + minutes;
                     }
 
                     if (minutes >= 60) {

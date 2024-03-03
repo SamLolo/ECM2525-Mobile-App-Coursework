@@ -12,14 +12,12 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
     private final TextView title_main;
     private final TextView title_secondary;
     private final TextView subtitle;
-    private final TextView time_view;
-    private final TextView status_view;
-    private final TextView platform_view;
-    private final TextView dash1;
-    private final TextView dash2;
-    private final TextView sub_info1;
-    private final TextView sub_info2;
-    private final TextView sub_info3;
+    private final TextView time;
+    private final TextView status;
+    private final TextView platform;
+    private final TextView dash;
+    private final TextView journey_time;
+    private final TextView operator;
     private ServiceData service = null;
 
     public DepartureHolder(View view, Context context) {
@@ -29,18 +27,16 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
         title_main = view.findViewById(R.id.txt_destination);
         title_secondary = view.findViewById(R.id.txt_destination_with_via);
         subtitle = view.findViewById(R.id.txt_via);
-        time_view = view.findViewById(R.id.txt_departure);
-        status_view = view.findViewById(R.id.txt_status);
-        platform_view = view.findViewById(R.id.txt_platform_no);
-        dash1 = view.findViewById(R.id.txt_dash_1);
-        dash2 = view.findViewById(R.id.txt_dash_2);
-        sub_info1 = view.findViewById(R.id.service_journey_time);
-        sub_info2 = view.findViewById(R.id.txt_subinfo_2);
-        sub_info3 = view.findViewById(R.id.service_operator);
+        time = view.findViewById(R.id.txt_departure);
+        status= view.findViewById(R.id.txt_status);
+        platform = view.findViewById(R.id.txt_platform_no);
+        dash = view.findViewById(R.id.txt_dash);
+        journey_time = view.findViewById(R.id.txt_journey_time);
+        operator = view.findViewById(R.id.txt_operator);
    }
 
    @Override
-   public void onClick(View view) {
+    public void onClick(View view) {
         System.out.println("Clicked");
         if (service != null) {
             Intent intent = new Intent(context, ServiceInfoActivity.class);
@@ -49,9 +45,9 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
         } else {
             System.out.println("Service is null");
         }
-   }
+    }
 
-   public void setService(ServiceData service) {
+    public void setService(ServiceData service) {
         this.service = service;
    }
 
@@ -64,75 +60,42 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
         subtitle.setText(via);
     }
 
-    public void setTime(String time) {
-        time_view.setText(time);
+    public void setTime(String time_str) {
+        time.setText(time_str);
     }
 
     public void setCancelled() {
-        status_view.setText(context.getString(R.string.cancelled));
-        int colour = context.getColor(R.color.cancelled);
-        status_view.setTextColor(colour);
+        status.setText(context.getString(R.string.cancelled));
+        status.setTextColor(context.getColor(R.color.cancelled));
     }
 
     public void setDelayed(String exp_time) {
-        status_view.setText(context.getString(R.string.exp, exp_time));
-        int colour = context.getColor(R.color.delayed);
-        status_view.setTextColor(colour);
+        status.setText(context.getString(R.string.exp, exp_time));
+        status.setTextColor(context.getColor(R.color.delayed));
     }
 
-    public void setPlatform(String platform) {
-        platform_view.setText(platform);
+    public void setOnTime() {
+        status.setText(context.getString(R.string.on_time));
+        status.setTextColor(context.getColor(R.color.on_time));
+    }
+
+    public void setPlatform(String platform_no) {
+        platform.setText(platform_no);
     }
 
     public void setOperator(String name) {
-        sub_info3.setText(context.getString(R.string.operated_by, name));
-        if (sub_info3.getVisibility() != View.VISIBLE) {
-            addInfo3();
-        }
-    }
-
-    public void setFormationLength(Integer length) {
-        sub_info2.setText(context.getString(R.string.coaches, length));
-        if (sub_info2.getVisibility() != View.VISIBLE) {
-            addInfo2();
-        }
+        operator.setText(context.getString(R.string.operated_by, name));
     }
 
     public void setJourneyTime(String time) {
-        sub_info1.setText(time);
-        if (sub_info1.getVisibility() != View.VISIBLE) {
-            addInfo1();
-        }
+        journey_time.setText(time);
+        journey_time.setVisibility(View.VISIBLE);
+        dash.setVisibility(View.VISIBLE);
     }
 
-    public void addInfo1() {
-        dash1.setVisibility(View.VISIBLE);
-        sub_info1.setVisibility(View.VISIBLE);
-    }
-
-    public void addInfo2() {
-        dash2.setVisibility(View.VISIBLE);
-        sub_info2.setVisibility(View.VISIBLE);
-    }
-
-    public void addInfo3() {
-        dash2.setVisibility(View.VISIBLE);
-        sub_info3.setVisibility(View.VISIBLE);
-    }
-
-    public void removeInfo1() {
-        dash1.setVisibility(View.GONE);
-        sub_info1.setVisibility(View.GONE);
-    }
-
-    public void removeInfo2() {
-        dash2.setVisibility(View.GONE);
-        sub_info2.setVisibility(View.GONE);
-    }
-
-    public void removeInfo3() {
-        dash2.setVisibility(View.GONE);
-        sub_info3.setVisibility(View.GONE);
+    public void removeJourneyTime() {
+        dash.setVisibility(View.GONE);
+        journey_time.setVisibility(View.GONE);
     }
 }
 

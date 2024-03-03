@@ -25,7 +25,7 @@ public class ServiceInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String data = intent.getStringExtra("service");
 
-        ServiceData service = null;
+        ServiceData service;
         try {
             service = new ServiceData(new JSONObject(data));
         } catch (JSONException e) {

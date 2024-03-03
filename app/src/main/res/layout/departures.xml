@@ -6,51 +6,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_border"
-    android:paddingBottom="16dp">
+    android:paddingBottom="16dp"
+    android:textAlignment="center">
 
     <TextView
-        android:id="@+id/txt_dash_1"
+        android:id="@+id/txt_dash"
         android:layout_width="11dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:text="@string/vertical_dash"
         android:textAlignment="center"
         android:textColor="@color/secondary_text"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/service_journey_time"
+        app:layout_constraintStart_toEndOf="@+id/txt_journey_time"
         app:layout_constraintTop_toBottomOf="@+id/txt_status" />
 
     <TextView
         android:id="@+id/txt_departure"
-        android:layout_width="65dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="11:25"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="11:25" />
 
     <TextView
         android:id="@+id/txt_status"
-        android:layout_width="70dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="On time"
+        android:textAlignment="center"
         android:textColor="@color/on_time"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_departure" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_departure"
+        tools:text="On time" />
 
     <TextView
         android:id="@+id/txt_destination"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         android:textSize="30sp"
@@ -58,7 +60,7 @@
         app:autoSizeMinTextSize="10sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform"
-        app:layout_constraintStart_toEndOf="@+id/txt_departure"
+        app:layout_constraintStart_toEndOf="@+id/txt_status"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -79,77 +81,57 @@
         android:layout_width="60dp"
         android:layout_height="25dp"
         android:layout_marginEnd="16dp"
-        android:text="1"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_platform" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_platform"
+        tools:text="1" />
 
     <TextView
-        android:id="@+id/service_journey_time"
+        android:id="@+id/txt_journey_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:text="1h 20m"
+        android:layout_marginTop="8dp"
         android:textColor="@color/secondary_text"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_status" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_status"
+        tools:text="1h 20m" />
 
     <TextView
-        android:id="@+id/txt_subinfo_2"
+        android:id="@+id/txt_operator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="4 coaches"
+        android:layout_marginTop="8dp"
         android:textColor="@color/secondary_text"
-        app:layout_constraintStart_toEndOf="@+id/txt_dash_1"
-        app:layout_constraintTop_toBottomOf="@+id/txt_status" />
-
-    <TextView
-        android:id="@+id/service_operator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="Operated by Great Western Railway"
-        android:textColor="@color/secondary_text"
-        app:layout_constraintStart_toEndOf="@+id/txt_dash_2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_destination" />
-
-    <TextView
-        android:id="@+id/txt_dash_2"
-        android:layout_width="11dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="6dp"
-        android:text="@string/vertical_dash"
-        android:textAlignment="center"
-        android:textColor="@color/secondary_text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/txt_subinfo_2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_destination" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/txt_dash"
+        app:layout_constraintTop_toBottomOf="@+id/txt_status"
+        tools:text="Operated by Great Western Railway" />
 
     <TextView
         android:id="@+id/txt_destination_with_via"
         android:layout_width="0dp"
         android:layout_height="28dp"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="8dp"
         android:autoSizeMaxTextSize="25sp"
         android:autoSizeTextType="uniform"
         android:textAlignment="center"
         android:textColor="@color/main_text"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform"
-        app:layout_constraintStart_toEndOf="@+id/txt_departure"
+        app:layout_constraintStart_toEndOf="@+id/txt_status"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_via"
         android:layout_width="0dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="9dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform_no"
