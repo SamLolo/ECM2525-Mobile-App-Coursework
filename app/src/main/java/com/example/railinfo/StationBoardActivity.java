@@ -6,19 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import java.text.DateFormat;
 
 public class StationBoardActivity extends AppCompatActivity {
 
@@ -33,7 +36,7 @@ public class StationBoardActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.txt_station_name);
         title.setText(intent.getStringExtra("station"));
 
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.departures_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -53,7 +56,6 @@ public class StationBoardActivity extends AppCompatActivity {
             json = future.get();
             if (json != null) {
                 JSONArray servicesJson = json.getJSONArray("trainServices");
-                System.out.println(servicesJson.length());
 
                 // Create Service Data objects and return services array list
                 for (int i = 0; i < servicesJson.length(); i++) {

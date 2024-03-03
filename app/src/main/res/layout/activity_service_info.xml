@@ -186,7 +186,7 @@
             tools:text="Stops: 16" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txt_last_updated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

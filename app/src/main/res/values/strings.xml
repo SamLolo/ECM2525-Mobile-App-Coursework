@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Railway Information UK</string>
+    <string name="app_name">TrainTrack UK</string>
     <string name="platform">Platform</string>
     <string name="operated_by">Operated by %1$s</string>
     <string name="exp">Exp %1$s</string>
@@ -22,4 +22,5 @@
     <string name="arrivals">Arrivals</string>
     <string name="departures">Departures</string>
     <string name="no_history">No previous searches to show!</string>
+    <string name="last_updated">Last Updated: %1$s</string>
 </resources>

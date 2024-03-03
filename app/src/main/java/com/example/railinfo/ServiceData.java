@@ -6,14 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Locale;
 
 public class ServiceData {
     private final String id;
-    private final JSONObject data;
     private final JSONArray origin;
     private final JSONArray destination;
     private final String scheduled_arr;
@@ -26,11 +27,11 @@ public class ServiceData {
     private final String platform;
     private JSONArray previous_calls = new JSONArray();
     private JSONArray future_calls = new JSONArray();
+    private Date last_refreshed = null;
 
     public ServiceData(JSONObject data) {
         // Set service attributes from JSON object passed in
         id = data.optString("serviceID");
-        this.data = data;
         origin = data.optJSONArray("origin");
         destination = data.optJSONArray("destination");
         operator = data.optString("operator");
@@ -41,6 +42,13 @@ public class ServiceData {
         estimated_dep = data.optString("etd");
         scheduled_arr = data.optString("sta");
         estimated_arr = data.optString("eta");
+
+        DateFormat df = DateFormat.getTimeInstance();
+        try {
+            last_refreshed = df.parse(data.getString("timestamp"));
+        } catch (JSONException | ParseException e) {
+            e.printStackTrace();
+        }
 
         // Try to set previous calls JSON array, catching an error if it occurs so that the attribute gets left as an empty array
         try {
@@ -60,11 +68,35 @@ public class ServiceData {
     @NonNull
     @Override
     public String toString() {
-        return data.toString();
-    }
+        JSONObject data = new JSONObject();
 
-    public String getServiceID() {
-        return id;
+        try {
+            data.put("serviceID", id);
+            data.put("origin", origin);
+            data.put("destination", destination);
+            data.put("operator", operator);
+            data.put("length", length);
+            data.put("isCancelled", cancelled);
+            data.put("platform", platform);
+            data.put("std", scheduled_dep);
+            data.put("etd", estimated_dep);
+            data.put("sta", scheduled_arr);
+            data.put("eta", estimated_arr);
+            if (last_refreshed != null) {
+                DateFormat df = DateFormat.getTimeInstance();
+                data.put("timestamp", df.format(last_refreshed));
+            }
+
+            JSONObject inner_array = new JSONObject().put("callingPoint", previous_calls);
+            data.put("previousCallingPoints", new JSONArray().put(inner_array));
+
+            inner_array = new JSONObject().put("callingPoint", future_calls);
+            data.put("subsequentCallingPoints", new JSONArray().put(inner_array));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return data.toString();
     }
 
     public String getOriginString() {
@@ -197,21 +229,40 @@ public class ServiceData {
 
                     if (minutes >= 60) {
                         int hours = Math.toIntExact(minutes / 60);
-                        if (hours == 1 && minutes == 60) {
-                            return "1 hour";
-                        } else if (hours == 1) {
-                            return String.format(Locale.getDefault(),"1 hour, %d mins", Math.toIntExact(minutes - 60));
-                        } else if (Math.toIntExact(minutes - (hours * 60L)) != 0) {
-                            return String.format(Locale.getDefault(), "%d hours, %d mins", hours, Math.toIntExact(minutes - (hours * 60L)));
+                        if (Math.toIntExact(minutes - (hours * 60L)) != 0) {
+                            return String.format(Locale.getDefault(), "%dh, %dm", hours, Math.toIntExact(minutes - (hours * 60L)));
                         } else {
-                            return String.format(Locale.getDefault(), "%d hours", hours);
+                            return String.format(Locale.getDefault(), "%dh", hours);
                         }
                     } else {
-                        return String.format(Locale.getDefault(),"%d mins", Math.toIntExact(minutes));
+                        return String.format(Locale.getDefault(),"%dm", Math.toIntExact(minutes));
                     }
                 }
             }
         }
         return "N/A";
+    }
+
+    public Integer getStops() {
+        return future_calls.length();
+    }
+
+    public JSONArray getCallingPoints() {
+        JSONArray calling_points = new JSONArray();
+        for (int i=0; i < previous_calls.length(); i++) {
+            calling_points.put(previous_calls.opt(i));
+        }
+        for (int j=0; j < future_calls.length(); j++) {
+            calling_points.put(future_calls.opt(j));
+        }
+        return calling_points;
+    }
+
+    public String getLastRefreshed() {
+        if (last_refreshed != null) {
+            return (String) android.text.format.DateFormat.format("hh:mm", last_refreshed);
+        } else {
+            return "N/A";
+        }
     }
 }

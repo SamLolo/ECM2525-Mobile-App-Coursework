@@ -42,6 +42,10 @@ public class ServiceInfoActivity extends AppCompatActivity {
         TextView platform = findViewById(R.id.service_platform);
         TextView via = findViewById(R.id.service_via);
         ConstraintLayout inner_layout = findViewById(R.id.innner_service_layout);
+        TextView time = inner_layout.findViewById(R.id.service_journey_time);
+        TextView stops = inner_layout.findViewById(R.id.service_stops);
+        TextView operator = inner_layout.findViewById(R.id.service_operator);
+        TextView updated = findViewById(R.id.txt_last_updated);
 
         // Set departure/arrival time
         if (service.isDeparture()) {
@@ -65,7 +69,7 @@ public class ServiceInfoActivity extends AppCompatActivity {
             status.setTextColor(getColor(R.color.on_time));
         }
 
-        // Set other attributes of the service
+        // Set main attributes of the service
         origin.setText(service.getOriginString());
         destination.setText(service.getDestinationString());
         platform.setText(service.getPlatformString());
@@ -77,5 +81,16 @@ public class ServiceInfoActivity extends AppCompatActivity {
         } else {
             via.setVisibility(View.GONE);
         }
+
+        // Set other attributes for service
+        if (service.getStops() > 0) {
+            time.setText(getString(R.string.journey_time, service.getTimeToDestination()));
+            stops.setText(getString(R.string.stops, service.getStops()));
+        } else {
+            time.setVisibility(View.GONE);
+            stops.setVisibility(View.GONE);
+        }
+        operator.setText(getString(R.string.operated_by, service.getOperator()));
+        updated.setText(getString(R.string.last_updated, service.getLastRefreshed()));
     }
 }

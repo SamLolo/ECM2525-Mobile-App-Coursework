@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.Callable;
 
@@ -52,6 +54,10 @@ public class StationBoardAPI implements Callable<JSONObject> {
         JSONObject json;
         try {
             json = new JSONObject(response.toString());
+            DateFormat df = DateFormat.getTimeInstance();
+            for (int i=0; i < json.getJSONArray("trainServices").length(); i++) {
+                json.getJSONArray("trainServices").getJSONObject(i).put("timestamp", df.format(Calendar.getInstance().getTime()));
+            }
             return json;
         } catch (JSONException e) {
             e.printStackTrace();
