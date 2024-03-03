@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
@@ -92,5 +93,12 @@ public class ServiceInfoActivity extends AppCompatActivity {
         }
         operator.setText(getString(R.string.operated_by, service.getOperator()));
         updated.setText(getString(R.string.last_updated, service.getLastRefreshed()));
+
+        // Setup calling point RecyclerView
+        RecyclerView recyclerView = inner_layout.findViewById(R.id.journey_progress_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        CallingPointAdapter adapter = new CallingPointAdapter(this, service.getCallingPoints());
+        recyclerView.setAdapter(adapter);
     }
 }

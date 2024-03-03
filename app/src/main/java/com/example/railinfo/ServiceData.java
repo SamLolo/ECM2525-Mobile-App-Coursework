@@ -14,23 +14,38 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ServiceData {
-    private final String id;
-    private final JSONArray origin;
-    private final JSONArray destination;
-    private final String scheduled_arr;
-    private final String estimated_arr;
-    private final String scheduled_dep;
-    private final String estimated_dep;
-    private final String operator;
-    private final Boolean cancelled;
-    private final Integer length;
-    private final String platform;
+    private final String station;
+    private final String crs;
+    private String id;
+    private JSONArray origin;
+    private JSONArray destination;
+    private String scheduled_arr;
+    private String estimated_arr;
+    private String scheduled_dep;
+    private String estimated_dep;
+    private String operator;
+    private Boolean cancelled;
+    private Integer length;
+    private String platform;
     private JSONArray previous_calls = new JSONArray();
     private JSONArray future_calls = new JSONArray();
     private Date last_refreshed = null;
 
+    public ServiceData(JSONObject data, String station, String crs) {
+        // Set service attributes from JSON object passed in
+        this.station = station;
+        this.crs = crs;
+        loadData(data);
+    }
+
     public ServiceData(JSONObject data) {
         // Set service attributes from JSON object passed in
+        station = data.optString("locationName");
+        crs = data.optString("crs");
+        loadData(data);
+    }
+
+    private void loadData(JSONObject data) {
         id = data.optString("serviceID");
         origin = data.optJSONArray("origin");
         destination = data.optJSONArray("destination");
@@ -82,6 +97,8 @@ public class ServiceData {
             data.put("etd", estimated_dep);
             data.put("sta", scheduled_arr);
             data.put("eta", estimated_arr);
+            data.put("locationName", station);
+            data.put("crs", crs);
             if (last_refreshed != null) {
                 DateFormat df = DateFormat.getTimeInstance();
                 data.put("timestamp", df.format(last_refreshed));
@@ -230,7 +247,7 @@ public class ServiceData {
                     if (minutes >= 60) {
                         int hours = Math.toIntExact(minutes / 60);
                         if (Math.toIntExact(minutes - (hours * 60L)) != 0) {
-                            return String.format(Locale.getDefault(), "%dh, %dm", hours, Math.toIntExact(minutes - (hours * 60L)));
+                            return String.format(Locale.getDefault(), "%dh %dm", hours, Math.toIntExact(minutes - (hours * 60L)));
                         } else {
                             return String.format(Locale.getDefault(), "%dh", hours);
                         }
@@ -250,10 +267,29 @@ public class ServiceData {
     public JSONArray getCallingPoints() {
         JSONArray calling_points = new JSONArray();
         for (int i=0; i < previous_calls.length(); i++) {
-            calling_points.put(previous_calls.opt(i));
+            calling_points.put(previous_calls.optJSONObject(i));
         }
+
+        JSONObject current = new JSONObject();
+        try {
+            current.put("locationName", station);
+            current.put("crs", crs);
+            current.put("platform", platform);
+            current.put("isCancelled", cancelled);
+            if (isDeparture()) {
+                current.put("st", scheduled_dep);
+                current.put("et", estimated_dep);
+            } else {
+                current.put("st", scheduled_arr);
+                current.put("et", estimated_arr);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        calling_points.put(current);
+
         for (int j=0; j < future_calls.length(); j++) {
-            calling_points.put(future_calls.opt(j));
+            calling_points.put(future_calls.optJSONObject(j));
         }
         return calling_points;
     }
@@ -263,6 +299,24 @@ public class ServiceData {
             return (String) android.text.format.DateFormat.format("hh:mm", last_refreshed);
         } else {
             return "N/A";
+        }
+    }
+
+    public String getOriginCRS() {
+        try {
+            return origin.getJSONObject(-1).getString("crs");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getDestinationCRS() {
+        try {
+            return destination.getJSONObject(-1).getString("crs");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

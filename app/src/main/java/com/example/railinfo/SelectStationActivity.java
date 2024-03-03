@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,9 +33,9 @@ public class SelectStationActivity extends AppCompatActivity {
         stations = loadStations();
         List<String> names_list = getStationNames();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, names_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names_list);
 
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.enter_station_autocomplete);
+        AutoCompleteTextView textView = findViewById(R.id.enter_station_autocomplete);
         textView.setAdapter(adapter);
         textView.setOnItemClickListener(new AutoCompleteListener());
     }
@@ -47,7 +45,7 @@ public class SelectStationActivity extends AppCompatActivity {
         StringBuilder json_string = new StringBuilder();
         try {
             BufferedReader file = new BufferedReader(new InputStreamReader(assets.open("stations.json")));
-            String line = null;
+            String line;
             while ((line = file.readLine()) != null) {
                 json_string.append(line);
             }
@@ -100,7 +98,7 @@ public class SelectStationActivity extends AppCompatActivity {
             String selected = (String)item.getText();
             System.out.println(selected);
 
-            String crs = "";
+            String crs;
             try {
                 crs = getCrs(selected);
             } catch (JSONException ex) {

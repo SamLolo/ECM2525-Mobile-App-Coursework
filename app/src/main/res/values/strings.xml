@@ -13,7 +13,7 @@
     <string name="to">to</string>
     <string name="on_time_departure">Departed On Time</string>
     <string name="delayed_departure">Departed %1$s</string>
-    <string name="platform_with_no">Platform %1%d</string>
+    <string name="platform_with_no">Platform %1$d</string>
     <string name="on_time">On Time</string>
     <string name="refresh">Refresh content</string>
     <string name="journey_time">Journey Time: %1$s</string>

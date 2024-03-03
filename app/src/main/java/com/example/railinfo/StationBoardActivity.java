@@ -12,18 +12,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import java.text.DateFormat;
-
 public class StationBoardActivity extends AppCompatActivity {
+    private String crs = "";
+    private String station = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,27 +29,28 @@ public class StationBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station_board);
 
         Intent intent = getIntent();
-        String crs = intent.getStringExtra("crs");
+        crs = intent.getStringExtra("crs");
+        station = intent.getStringExtra("station");
 
         TextView title = findViewById(R.id.txt_station_name);
-        title.setText(intent.getStringExtra("station"));
+        title.setText(station);
 
         RecyclerView recyclerView = findViewById(R.id.departures_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<ServiceData> services = getServices(crs);
+        ArrayList<ServiceData> services = getServices();
         DepartureAdapter adapter = new DepartureAdapter(this, services);
         recyclerView.setAdapter(adapter);
     }
 
-    private ArrayList<ServiceData> getServices(String crs) {
+    private ArrayList<ServiceData> getServices() {
 
-        ArrayList<ServiceData> services = new ArrayList<ServiceData>();
+        ArrayList<ServiceData> services = new ArrayList<>();
         ExecutorService pool = Executors.newFixedThreadPool(3);
         Callable<JSONObject> callable = new StationBoardAPI(crs);
         Future<JSONObject> future = pool.submit(callable);
-        JSONObject json = null;
+        JSONObject json;
         try {
             json = future.get();
             if (json != null) {
@@ -59,7 +58,7 @@ public class StationBoardActivity extends AppCompatActivity {
 
                 // Create Service Data objects and return services array list
                 for (int i = 0; i < servicesJson.length(); i++) {
-                    ServiceData service = new ServiceData(servicesJson.getJSONObject(i));
+                    ServiceData service = new ServiceData(servicesJson.getJSONObject(i), station, crs);
                     if (service.isDeparture()) {
                         services.add(service);
                     }
