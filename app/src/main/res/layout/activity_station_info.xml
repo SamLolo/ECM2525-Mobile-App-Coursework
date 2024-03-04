@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/main_text"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/secondary_text"
         android:textSize="16sp"
@@ -50,10 +50,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:textColor="@color/main_text"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/station_address"
+        app:layout_constraintBottom_toBottomOf="@+id/station_name"
         app:layout_constraintStart_toEndOf="@+id/station_name"
         tools:text="(EXD)" />
+
+    <Button
+        android:id="@+id/btn_directions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/directions"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/station_address" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inner_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/top_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_directions">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

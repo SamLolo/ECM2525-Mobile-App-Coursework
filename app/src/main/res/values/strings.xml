@@ -25,4 +25,6 @@
     <string name="no_history">No previous searches to show!</string>
     <string name="last_updated">Last Updated: %1$s</string>
     <string name="operated_by">Operated by</string>
+    <string name="directions">Get Directions</string>
+    <string name="last_accessed">Last Accessed:</string>
 </resources>
