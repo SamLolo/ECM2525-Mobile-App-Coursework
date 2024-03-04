@@ -1,10 +1,15 @@
 package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.SharedMemory;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,12 +23,17 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class SelectStationActivity extends AppCompatActivity {
-
-    private static JSONObject stations;
+    private final ArrayList<HistoryData> history = new ArrayList<>();
+    private HistoryAdapter hAdapter;
+    private JSONObject stations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +44,23 @@ public class SelectStationActivity extends AppCompatActivity {
         List<String> names_list = getStationNames();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names_list);
-
         AutoCompleteTextView textView = findViewById(R.id.enter_station_autocomplete);
         textView.setAdapter(adapter);
         textView.setOnItemClickListener(new AutoCompleteListener());
+
+        RecyclerView history_view = findViewById(R.id.history_view);
+        history_view.setLayoutManager(new LinearLayoutManager(this));
+        loadHistory();
+        hAdapter = new HistoryAdapter(this, history);
+        history_view.setAdapter(hAdapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        System.out.println("Reloading History");
+        loadHistory();
+        hAdapter.notifyDataSetChanged();
+        super.onRestart();
     }
 
     public JSONObject loadStations() {
@@ -89,6 +112,26 @@ public class SelectStationActivity extends AppCompatActivity {
         JSONArray station_names = stations.toJSONArray(stations.names());
         JSONObject inverted_stations = stations.names().toJSONObject(station_names);
         return inverted_stations.getString(station);
+    }
+
+    private void loadHistory() {
+        TextView no_history = findViewById(R.id.txt_no_history);
+        SharedPreferences pf = getSharedPreferences("history", Context.MODE_PRIVATE);
+        if (!pf.contains("history")) {
+            no_history.setVisibility(View.VISIBLE);
+        } else {
+            no_history.setVisibility(View.GONE);
+            String data = pf.getString("history", "{}");
+            try {
+                JSONObject json = new JSONObject(data);
+                for (Iterator<String> it = json.keys(); it.hasNext(); ) {
+                    String crs = it.next();
+                    history.add(new HistoryData(stations.getString(crs), crs, json.getString(crs)));
+                }
+            } catch (JSONException | ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     class AutoCompleteListener implements AdapterView.OnItemClickListener {

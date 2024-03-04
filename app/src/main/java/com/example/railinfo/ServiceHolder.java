@@ -72,7 +72,11 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
     }
 
     public void setDelayed(String exp_time) {
-        status.setText(context.getString(R.string.exp, exp_time));
+        if (exp_time.equals("Delayed")) {
+            status.setText(exp_time);
+        } else {
+            status.setText(context.getString(R.string.exp, exp_time));
+        }
         status.setTextColor(context.getColor(R.color.delayed));
     }
 

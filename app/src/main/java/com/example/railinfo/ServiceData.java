@@ -284,7 +284,7 @@ public class ServiceData {
 
     public String getLastRefreshed() {
         if (last_refreshed != null) {
-            return (String) android.text.format.DateFormat.format("hh:mm", last_refreshed);
+            return (String) android.text.format.DateFormat.format("HH:mm", last_refreshed);
         } else {
             return "N/A";
         }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -12,7 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -31,6 +35,33 @@ public class StationBoardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         crs = intent.getStringExtra("crs");
         station = intent.getStringExtra("station");
+
+        SharedPreferences pf = getSharedPreferences("history", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pf.edit();
+        JSONObject history;
+        try {
+            history = new JSONObject(pf.getString("history", "{}"));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        DateFormat df = DateFormat.getDateTimeInstance();
+        try {
+            if (history.isNull(crs)) {
+                if (history.length() >= 10) {
+                    String to_remove = history.keys().next();
+                    history.remove(to_remove);
+                }
+                history.putOpt(crs, df.format(Calendar.getInstance().getTime()));
+            } else {
+                history.remove(crs);
+                history.putOpt(crs, df.format(Calendar.getInstance().getTime()));
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        editor.putString("history", history.toString());
+        editor.apply();
 
         TextView title = findViewById(R.id.txt_station_name);
         title.setText(station);

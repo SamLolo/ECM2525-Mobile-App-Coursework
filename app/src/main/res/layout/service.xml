@@ -125,13 +125,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:autoSizeMaxTextSize="16sp"
+        android:autoSizeMaxTextSize="15sp"
+        android:autoSizeMinTextSize="10dp"
         android:autoSizeTextType="uniform"
         android:gravity="center_horizontal|center_vertical"
+        android:maxHeight="20sp"
         android:textSize="16sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/txt_status"
         app:layout_constraintEnd_toStartOf="@+id/txt_platform_no"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/txt_status"
         tools:text="Via Bristol Temple Meads" />
 
