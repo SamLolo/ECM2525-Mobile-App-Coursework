@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TrainTrack UK</string>
     <string name="platform">Platform</string>
-    <string name="operated_by">Operated by %1$s</string>
+    <string name="operator">Operated by %1$s</string>
     <string name="exp">Exp %1$s</string>
     <string name="cancelled">Cancelled</string>
     <string name="coaches">%1$d Coaches</string>
@@ -10,7 +10,8 @@
     <string name="choose_station">Or select a previous station</string>
     <string name="enter_station">Enter a station&#8230;</string>
     <string name="expected">Expected %1$s</string>
-    <string name="to">to</string>
+    <string name="to">To</string>
+    <string name="from">From</string>
     <string name="on_time_departure">Departed On Time</string>
     <string name="delayed_departure">Departed %1$s</string>
     <string name="platform_with_no">Platform %1$d</string>
@@ -23,4 +24,5 @@
     <string name="departures">Departures</string>
     <string name="no_history">No previous searches to show!</string>
     <string name="last_updated">Last Updated: %1$s</string>
+    <string name="operated_by">Operated by</string>
 </resources>

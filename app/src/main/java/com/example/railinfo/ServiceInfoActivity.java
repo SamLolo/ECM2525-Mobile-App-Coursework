@@ -24,6 +24,9 @@ public class ServiceInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String data = intent.getStringExtra("service");
+        if (data == null) {
+            throw new RuntimeException("Missing service data to load!");
+        }
 
         ServiceData service;
         try {
@@ -107,7 +110,7 @@ public class ServiceInfoActivity extends AppCompatActivity {
             time.setVisibility(View.GONE);
             stops.setVisibility(View.GONE);
         }
-        operator.setText(getString(R.string.operated_by, service.getOperator()));
+        operator.setText(getString(R.string.operator, service.getOperator()));
         updated.setText(getString(R.string.last_updated, service.getLastRefreshed()));
 
         // Setup calling point RecyclerView

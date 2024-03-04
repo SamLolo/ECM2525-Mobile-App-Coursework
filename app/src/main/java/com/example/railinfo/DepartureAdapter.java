@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DepartureAdapter extends RecyclerView.Adapter<DepartureHolder> {
+public class DepartureAdapter extends RecyclerView.Adapter<ServiceHolder> {
     private final ArrayList<ServiceData> services;
     private final Context context;
 
@@ -22,24 +22,25 @@ public class DepartureAdapter extends RecyclerView.Adapter<DepartureHolder> {
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public DepartureHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ServiceHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.departures, viewGroup, false);
+                .inflate(R.layout.service, viewGroup, false);
 
-        return new DepartureHolder(view, context);
+        return new ServiceHolder(view, context);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(@NonNull DepartureHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull ServiceHolder viewHolder, final int position) {
         ServiceData service = services.get(position);
         viewHolder.setService(service);
 
+        viewHolder.setStation(service.getDestinationString());
         if (service.hasVia()) {
-            viewHolder.setDestinationWithVia(service.getDestinationString(), service.getVia());
+            viewHolder.setSubtext(service.getVia());
         } else {
-            viewHolder.setDestination(service.getDestinationString());
+            viewHolder.removeSubtext();
         }
 
         viewHolder.setTime(service.getScheduledDeparture());

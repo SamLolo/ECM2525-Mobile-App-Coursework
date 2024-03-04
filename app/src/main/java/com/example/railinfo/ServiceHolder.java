@@ -7,10 +7,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final Context context;
-    private final TextView title_main;
-    private final TextView title_secondary;
+    private final TextView title;
     private final TextView subtitle;
     private final TextView time;
     private final TextView status;
@@ -20,12 +19,11 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
     private final TextView operator;
     private ServiceData service = null;
 
-    public DepartureHolder(View view, Context context) {
+    public ServiceHolder(View view, Context context) {
         super(view);
         view.setOnClickListener(this);
         this.context = context;
-        title_main = view.findViewById(R.id.txt_destination);
-        title_secondary = view.findViewById(R.id.txt_destination_with_via);
+        title = view.findViewById(R.id.txt_destination);
         subtitle = view.findViewById(R.id.txt_via);
         time = view.findViewById(R.id.txt_departure);
         status= view.findViewById(R.id.txt_status);
@@ -51,13 +49,17 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
         this.service = service;
    }
 
-    public void setDestination(String name) {
-        title_main.setText(name);
+    public void setStation(String name) {
+        title.setText(name);
     }
 
-    public void setDestinationWithVia(String name, String via) {
-        title_secondary.setText(name);
-        subtitle.setText(via);
+    public void setSubtext(String text) {
+        subtitle.setVisibility(View.VISIBLE);
+        subtitle.setText(text);
+    }
+
+    public void removeSubtext() {
+        subtitle.setVisibility(View.GONE);
     }
 
     public void setTime(String time_str) {
@@ -84,7 +86,7 @@ public class DepartureHolder extends RecyclerView.ViewHolder implements View.OnC
     }
 
     public void setOperator(String name) {
-        operator.setText(context.getString(R.string.operated_by, name));
+        operator.setText(name);
     }
 
     public void setJourneyTime(String time) {

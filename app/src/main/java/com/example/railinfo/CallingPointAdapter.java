@@ -59,7 +59,7 @@ public class CallingPointAdapter extends RecyclerView.Adapter<CallingPointHolder
             viewHolder.setNormal();
         }
 
-        viewHolder.setStation(station.optString("locationName"));
+        viewHolder.setStation(station.optString("locationName") + " (" + station.optString("crs") + ")");
         viewHolder.setTime(station.optString("st"));
 
         if (station.optBoolean("isCancelled")) {

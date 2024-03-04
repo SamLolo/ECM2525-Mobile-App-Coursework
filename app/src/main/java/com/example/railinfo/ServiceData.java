@@ -25,7 +25,6 @@ public class ServiceData {
     private String estimated_dep;
     private String operator;
     private Boolean cancelled;
-    private Integer length;
     private String platform;
     private JSONArray previous_calls = new JSONArray();
     private JSONArray future_calls = new JSONArray();
@@ -50,7 +49,6 @@ public class ServiceData {
         origin = data.optJSONArray("origin");
         destination = data.optJSONArray("destination");
         operator = data.optString("operator");
-        length = data.optInt("length");
         cancelled = data.optBoolean("isCancelled");
         platform = data.optString("platform");
         scheduled_dep = data.optString("std");
@@ -90,7 +88,6 @@ public class ServiceData {
             data.put("origin", origin);
             data.put("destination", destination);
             data.put("operator", operator);
-            data.put("length", length);
             data.put("isCancelled", cancelled);
             data.put("platform", platform);
             data.put("std", scheduled_dep);
@@ -214,14 +211,6 @@ public class ServiceData {
         return cancelled;
     }
 
-    public Boolean hasFormationLength() {
-        return !length.equals(0);
-    }
-
-    public Integer getFormationLength() {
-        return length;
-    }
-
     public Boolean isDelayedDeparture() {
         return !estimated_dep.equals("On time");
     }
@@ -274,7 +263,6 @@ public class ServiceData {
         try {
             current.put("locationName", station);
             current.put("crs", crs);
-            current.put("platform", platform);
             current.put("isCancelled", cancelled);
             if (isDeparture()) {
                 current.put("st", scheduled_dep);
@@ -299,24 +287,6 @@ public class ServiceData {
             return (String) android.text.format.DateFormat.format("hh:mm", last_refreshed);
         } else {
             return "N/A";
-        }
-    }
-
-    public String getOriginCRS() {
-        try {
-            return origin.getJSONObject(-1).getString("crs");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getDestinationCRS() {
-        try {
-            return destination.getJSONObject(-1).getString("crs");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }

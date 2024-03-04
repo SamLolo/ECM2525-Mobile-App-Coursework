@@ -41,7 +41,7 @@ public class StationBoardAPI implements Callable<JSONObject> {
 
             // Read JSON content from API into String
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 response.append(line).append("\n");
             }
