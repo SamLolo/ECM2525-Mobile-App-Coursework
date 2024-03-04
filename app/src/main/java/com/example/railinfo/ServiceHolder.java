@@ -23,8 +23,8 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
         super(view);
         view.setOnClickListener(this);
         this.context = context;
-        title = view.findViewById(R.id.txt_destination);
-        subtitle = view.findViewById(R.id.txt_via);
+        title = view.findViewById(R.id.txt_station);
+        subtitle = view.findViewById(R.id.txt_subinfo);
         time = view.findViewById(R.id.txt_departure);
         status= view.findViewById(R.id.txt_status);
         platform = view.findViewById(R.id.txt_platform_no);
