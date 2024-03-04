@@ -160,7 +160,7 @@ public class ServiceData {
                 if (destination.length()-i > 1 && i > 0) {
                     sb.append(", ");
                 } else if (i > 0) {
-                    sb.append(" &amp; ");
+                    sb.append(" & ");
                 }
                 sb.append(location.optString("locationName"));
                 sb.append(" (").append(location.optString("crs")).append(")");

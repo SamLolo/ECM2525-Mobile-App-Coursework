@@ -11,6 +11,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.SharedMemory;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,9 +45,9 @@ public class SelectStationActivity extends AppCompatActivity {
         List<String> names_list = getStationNames();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, names_list);
-        AutoCompleteTextView textView = findViewById(R.id.enter_station_autocomplete);
-        textView.setAdapter(adapter);
-        textView.setOnItemClickListener(new AutoCompleteListener());
+        AutoCompleteTextView input = findViewById(R.id.enter_station_autocomplete);
+        input.setAdapter(adapter);
+        input.setOnItemClickListener(new AutoCompleteListener());
 
         RecyclerView history_view = findViewById(R.id.history_view);
         history_view.setLayoutManager(new LinearLayoutManager(this));
@@ -57,9 +58,19 @@ public class SelectStationActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        System.out.println("Reloading History");
         loadHistory();
         hAdapter.notifyDataSetChanged();
+
+        AutoCompleteTextView input = findViewById(R.id.enter_station_autocomplete);
+        input.setText("");
+
+        input.postDelayed(() -> {
+            if (getCurrentFocus() != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }, 500);
+
         super.onRestart();
     }
 
@@ -124,10 +135,12 @@ public class SelectStationActivity extends AppCompatActivity {
             String data = pf.getString("history", "{}");
             try {
                 JSONObject json = new JSONObject(data);
+                history.clear();
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                     String crs = it.next();
                     history.add(new HistoryData(stations.getString(crs), crs, json.getString(crs)));
                 }
+                Collections.sort(history);
             } catch (JSONException | ParseException e) {
                 throw new RuntimeException(e);
             }

@@ -1,6 +1,7 @@
 package com.example.railinfo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HistoryHolder extends RecyclerView.ViewHolder {
+public class HistoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final Context context;
     private final TextView station;
     private final TextView time;
@@ -19,11 +20,20 @@ public class HistoryHolder extends RecyclerView.ViewHolder {
     private String crs;
     public HistoryHolder(View view, Context context) {
         super(view);
+        view.setOnClickListener(this);
         this.context = context;
         layout = view.findViewById(R.id.history_layout);
         station = view.findViewById(R.id.history_station);
         time = view.findViewById(R.id.history_time);
         date = view.findViewById(R.id.history_date);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(context, StationBoardActivity.class);
+        intent.putExtra("crs", crs);
+        intent.putExtra("station", name);
+        context.startActivity(intent);
     }
 
     public void setStation() {

@@ -48,7 +48,7 @@ public class StationBoardActivity extends AppCompatActivity {
         DateFormat df = DateFormat.getDateTimeInstance();
         try {
             if (history.isNull(crs)) {
-                if (history.length() >= 10) {
+                if (history.length() >= 8) {
                     String to_remove = history.keys().next();
                     history.remove(to_remove);
                 }

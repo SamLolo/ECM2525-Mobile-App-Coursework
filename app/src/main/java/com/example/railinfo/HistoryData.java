@@ -18,7 +18,7 @@ public class HistoryData implements Comparable<HistoryData>{
 
     @Override
     public int compareTo(HistoryData data) {
-        return date.compareTo(data.getDateTime());
+        return -1*(date.compareTo(data.getDateTime()));
     }
 
     public String getStation() {
