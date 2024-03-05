@@ -43,12 +43,6 @@ public class StationsXMLParser {
                 case "Address":
                     station.setAddress(readAddress(parser));
                     break;
-                case "Longitude":
-                    station.setLongitude(readDecimal(parser, name));
-                    break;
-                case "Latitude":
-                    station.setLatitude(readDecimal(parser, name));
-                    break;
                 default:
                     skip(parser);
                     break;
@@ -62,17 +56,6 @@ public class StationsXMLParser {
         String result = "";
         if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
-            parser.nextTag();
-        }
-        parser.require(XmlPullParser.END_TAG, namespace, tag);
-        return result;
-    }
-
-    private float readDecimal(XmlPullParser parser, String tag) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, namespace, tag);
-        float result = 0;
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = Float.parseFloat(parser.getText());
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, namespace, tag);

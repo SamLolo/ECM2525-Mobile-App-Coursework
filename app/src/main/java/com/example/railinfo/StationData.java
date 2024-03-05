@@ -4,8 +4,6 @@ public class StationData {
     private String crs;
     private String name;
     private String address;
-    private float latitude;
-    private float longitude;
 
     public StationData() {}
 
@@ -21,14 +19,6 @@ public class StationData {
         this.address = address;
     }
 
-    public void setLatitude(float lat) {
-        latitude = lat;
-    }
-
-    public void setLongitude(float lng) {
-        longitude = lng;
-    }
-
     public String getCrs() {
         return crs;
     }
@@ -40,4 +30,5 @@ public class StationData {
     public String getAddress() {
         return address;
     }
+
 }

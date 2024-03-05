@@ -1,13 +1,17 @@
 package com.example.railinfo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -50,6 +54,15 @@ public class StationInfoActivity extends AppCompatActivity {
             name_view.setText(station.getName());
             crs_view.setText(getString(R.string.brackets, station.getCrs()));
             address_view.setText(station.getAddress());
+
+            Button btn_directions = findViewById(R.id.btn_directions);
+            btn_directions.setOnClickListener(v -> {
+                String mapsUrl = String.format(Locale.getDefault(), "google.navigation:q=%s", station.getAddress().replaceAll("\\s", "+"));
+                Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mapsUrl));
+                if (mapsIntent.resolveActivity(getPackageManager()) != null){
+                    startActivity(mapsIntent);
+                }
+            });
         }
     }
 
