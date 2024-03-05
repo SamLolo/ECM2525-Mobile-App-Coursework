@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.railinfo.data.api.ArrivalDepartureAPI;
 import com.example.railinfo.data.objects.ServiceData;
 import com.example.railinfo.fragments.ArrivalsFragment;
+import com.example.railinfo.fragments.DeparturesFragment;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +23,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -47,7 +51,7 @@ public class StationBoardActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.fragments_container, ArrivalsFragment.class, null)
+                .replace(R.id.fragments_container, DeparturesFragment.class, null)
                 .commit();
 
         ImageButton info = findViewById(R.id.btn_station_info);
@@ -55,6 +59,30 @@ public class StationBoardActivity extends AppCompatActivity {
             Intent info_intent = new Intent(this, StationInfoActivity.class);
             info_intent.putExtra("crs", crs);
             startActivity(info_intent);
+        });
+
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (Objects.equals(tab.getText(), "Departures")) {
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragments_container, DeparturesFragment.class, null)
+                            .commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragments_container, ArrivalsFragment.class, null)
+                            .commit();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
