@@ -31,7 +31,7 @@ public class StationBoardAPI implements Callable<JSONObject> {
             URL url = new URL(uri);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("x-apikey", BuildConfig.RailAPIKey);
+            connection.setRequestProperty("x-apikey", BuildConfig.ArrDepAPIKey);
             connection.connect();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {

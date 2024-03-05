@@ -32,6 +32,9 @@
             android:name=".ServiceInfoActivity"
             android:exported="false"/>
 
+        <activity android:name=".StationInfoActivity"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
