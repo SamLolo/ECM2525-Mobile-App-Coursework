@@ -101,7 +101,8 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     public void removeJourneyTime() {
         dash.setVisibility(View.GONE);
-        journey_time.setVisibility(View.GONE);
+        journey_time.setVisibility(View.INVISIBLE);
+        journey_time.setText("");
     }
 }
 

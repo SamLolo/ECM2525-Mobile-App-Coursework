@@ -29,4 +29,6 @@
     <string name="last_accessed">Last Accessed:</string>
     <string name="station_with_crs">%1$s (%2$s)</string>
     <string name="brackets">(%1$s)</string>
+    <string name="terminates_here">This service terminates here</string>
+    <string name="to_with_destination">To %1$s</string>
 </resources>

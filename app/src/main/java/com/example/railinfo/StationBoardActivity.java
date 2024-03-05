@@ -1,14 +1,11 @@
 package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,8 +23,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class StationBoardActivity extends AppCompatActivity {
-    private String crs = "";
-    private String station = "";
+
+    private static ArrayList<ServiceData> services = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +32,29 @@ public class StationBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station_board);
 
         Intent intent = getIntent();
-        crs = intent.getStringExtra("crs");
-        station = intent.getStringExtra("station");
+        String crs = intent.getStringExtra("crs");
+        String station = intent.getStringExtra("station");
 
+        addHistory(crs);
+        services = loadServices(crs, station);
+
+        TextView title = findViewById(R.id.txt_station_name);
+        title.setText(station);
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragments_container, ArrivalsFragment.class, null)
+                .commit();
+
+        ImageButton info = findViewById(R.id.btn_station_info);
+        info.setOnClickListener(v -> {
+            Intent info_intent = new Intent(this, StationInfoActivity.class);
+            info_intent.putExtra("crs", crs);
+            startActivity(info_intent);
+        });
+    }
+
+    private void addHistory(String crs) {
         SharedPreferences pf = getSharedPreferences("history", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pf.edit();
         JSONObject history;
@@ -64,27 +81,9 @@ public class StationBoardActivity extends AppCompatActivity {
         }
         editor.putString("history", history.toString());
         editor.apply();
-
-        TextView title = findViewById(R.id.txt_station_name);
-        title.setText(station);
-
-        RecyclerView recyclerView = findViewById(R.id.departures_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<ServiceData> services = getServices();
-        DepartureAdapter adapter = new DepartureAdapter(this, services);
-        recyclerView.setAdapter(adapter);
-
-        ImageButton info = findViewById(R.id.btn_station_info);
-        info.setOnClickListener(v -> {
-            Intent info_intent = new Intent(this, StationInfoActivity.class);
-            info_intent.putExtra("crs", crs);
-            startActivity(info_intent);
-        });
     }
 
-    private ArrayList<ServiceData> getServices() {
+    public ArrayList<ServiceData> loadServices(String crs, String station) {
 
         ArrayList<ServiceData> services = new ArrayList<>();
         ExecutorService pool = Executors.newFixedThreadPool(3);
@@ -98,15 +97,15 @@ public class StationBoardActivity extends AppCompatActivity {
 
                 // Create Service Data objects and return services array list
                 for (int i = 0; i < servicesJson.length(); i++) {
-                    ServiceData service = new ServiceData(servicesJson.getJSONObject(i), station, crs);
-                    if (service.isDeparture()) {
-                        services.add(service);
-                    }
-                }
+                    services.add(new ServiceData(servicesJson.getJSONObject(i), station, crs));                }
             }
         } catch (JSONException | ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        return services;
+    }
+
+    public static ArrayList<ServiceData> getServices() {
         return services;
     }
 }

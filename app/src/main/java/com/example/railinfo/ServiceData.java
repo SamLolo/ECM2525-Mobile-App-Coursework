@@ -289,4 +289,9 @@ public class ServiceData {
             return "N/A";
         }
     }
+
+    public boolean terminatesHere() throws JSONException {
+        String dest_crs = destination.getJSONObject(0).getString("crs");
+        return (dest_crs.equals(crs));
+    }
 }
