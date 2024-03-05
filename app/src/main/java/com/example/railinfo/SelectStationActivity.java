@@ -9,13 +9,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.os.SharedMemory;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
+import com.example.railinfo.adapters.HistoryAdapter;
+import com.example.railinfo.data.objects.HistoryData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class SelectStationActivity extends AppCompatActivity {
     private final ArrayList<HistoryData> history = new ArrayList<>();

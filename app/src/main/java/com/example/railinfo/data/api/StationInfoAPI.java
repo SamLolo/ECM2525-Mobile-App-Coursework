@@ -1,4 +1,8 @@
-package com.example.railinfo;
+package com.example.railinfo.data.api;
+
+import com.example.railinfo.BuildConfig;
+import com.example.railinfo.data.objects.StationData;
+import com.example.railinfo.data.xml.StationsXMLParser;
 
 import org.xmlpull.v1.XmlPullParserException;
 

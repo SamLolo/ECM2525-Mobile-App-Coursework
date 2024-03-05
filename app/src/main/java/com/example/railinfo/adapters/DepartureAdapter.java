@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
+import com.example.railinfo.R;
+import com.example.railinfo.data.objects.ServiceData;
+import com.example.railinfo.viewholders.ServiceHolder;
 
 import java.util.ArrayList;
 
-public class ArrivalsAdapter extends RecyclerView.Adapter<ServiceHolder> {
+public class DepartureAdapter extends RecyclerView.Adapter<ServiceHolder> {
     private final ArrayList<ServiceData> services;
     private final Context context;
 
-    public ArrivalsAdapter(Context context, ArrayList<ServiceData> services) {
+    public DepartureAdapter(Context context, ArrayList<ServiceData> services) {
         this.context = context;
         this.services = services;
     }
@@ -38,26 +40,28 @@ public class ArrivalsAdapter extends RecyclerView.Adapter<ServiceHolder> {
         ServiceData service = services.get(position);
         viewHolder.setService(service);
 
-        viewHolder.setStation(service.getOriginString());
-        try {
-            if (service.terminatesHere()) {
-                viewHolder.setSubtext(context.getString(R.string.terminates_here));
-            } else {
-                viewHolder.setSubtext(context.getString(R.string.to_with_destination, service.getDestinationString()));
-            }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        viewHolder.setStation(service.getDestinationString());
+        if (service.hasVia()) {
+            viewHolder.setSubtext(service.getVia());
+        } else {
+            viewHolder.removeSubtext();
         }
 
-        viewHolder.setTime(service.getScheduledArrival());
+        viewHolder.setTime(service.getScheduledDeparture());
         viewHolder.setPlatform(service.getPlatformString());
         viewHolder.setOperator(service.getOperator());
-        viewHolder.removeJourneyTime();
+
+        String journeyTime = service.getTimeToDestination();
+        if (!journeyTime.equals("N/A")) {
+            viewHolder.setJourneyTime(journeyTime);
+        } else {
+            viewHolder.removeJourneyTime();
+        }
 
         if (service.isCancelled()) {
             viewHolder.setCancelled();
-        } else if (service.isDelayedArrival()) {
-            viewHolder.setDelayed(service.getEstimatedArrival());
+        } else if (service.isDelayedDeparture()) {
+            viewHolder.setDelayed(service.getEstimatedDeparture());
         } else {
             viewHolder.setOnTime();
         }

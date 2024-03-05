@@ -1,4 +1,6 @@
-package com.example.railinfo;
+package com.example.railinfo.data.api;
+
+import com.example.railinfo.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;

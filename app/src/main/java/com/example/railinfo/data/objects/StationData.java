@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.data.objects;
 
 public class StationData {
     private String crs;

@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.railinfo.data.api.ArrivalDepartureAPI;
+import com.example.railinfo.data.objects.ServiceData;
+import com.example.railinfo.fragments.ArrivalsFragment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

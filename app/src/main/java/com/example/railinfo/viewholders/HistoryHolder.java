@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.viewholders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.railinfo.R;
+import com.example.railinfo.StationBoardActivity;
 
 public class HistoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final Context context;
@@ -66,3 +69,4 @@ public class HistoryHolder extends RecyclerView.ViewHolder implements View.OnCli
         this.crs = crs;
     }
 }
+

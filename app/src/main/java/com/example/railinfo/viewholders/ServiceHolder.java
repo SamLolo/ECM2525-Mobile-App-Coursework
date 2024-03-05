@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.viewholders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.railinfo.R;
+import com.example.railinfo.ServiceInfoActivity;
+import com.example.railinfo.data.objects.ServiceData;
 
 public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final Context context;
@@ -31,9 +35,9 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
         dash = view.findViewById(R.id.txt_dash);
         journey_time = view.findViewById(R.id.txt_journey_time);
         operator = view.findViewById(R.id.txt_operator);
-   }
+    }
 
-   @Override
+    @Override
     public void onClick(View view) {
         System.out.println("Clicked");
         if (service != null) {
@@ -47,7 +51,7 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     public void setService(ServiceData service) {
         this.service = service;
-   }
+    }
 
     public void setStation(String name) {
         title.setText(name);
@@ -105,4 +109,3 @@ public class ServiceHolder extends RecyclerView.ViewHolder implements View.OnCli
         journey_time.setText("");
     }
 }
-

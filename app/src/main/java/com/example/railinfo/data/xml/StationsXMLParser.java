@@ -1,6 +1,8 @@
-package com.example.railinfo;
+package com.example.railinfo.data.xml;
 
 import android.util.Xml;
+
+import com.example.railinfo.data.objects.StationData;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.railinfo.R;
+import com.example.railinfo.viewholders.CallingPointHolder;
 
 import org.json.JSONArray;
 import org.json.JSONException;

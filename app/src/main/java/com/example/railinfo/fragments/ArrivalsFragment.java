@@ -1,4 +1,4 @@
-package com.example.railinfo;
+package com.example.railinfo.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.railinfo.R;
+import com.example.railinfo.data.objects.ServiceData;
+import com.example.railinfo.StationBoardActivity;
+import com.example.railinfo.adapters.ArrivalsAdapter;
 
 import java.util.ArrayList;
 
