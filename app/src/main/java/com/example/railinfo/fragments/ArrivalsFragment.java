@@ -17,23 +17,50 @@ import com.example.railinfo.adapters.ArrivalsAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment to show the arrivals for a service within a RecyclerView.
+ *
+ * @author Sam Townley
+ * @version 1.0
+ */
 public class ArrivalsFragment extends Fragment {
 
-    public ArrivalsFragment() {
-        super(R.layout.station_board_recycler_view);
-    }
-
+    /**
+     * Inflates the layout when the fragment is first created.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     *                 any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's
+     *                  UI should be attached to.  The fragment should not add the view itself,
+     *                  but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     *
+     * @return The root View of the inflated layout for the fragment.
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.station_board_recycler_view, container, false);
     }
 
+    /**
+     * Called immediately after creating the view.
+     * <p>
+     * Creates the RecyclerView layout manager and creates the adapter for arrivals after
+     * filtering the services data returned from {@link StationBoardActivity}.
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
+        // Set layout manager of RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.departures_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        // Get services and filter only arriving services
         ArrayList<ServiceData> services = StationBoardActivity.getServices();
         ArrayList<ServiceData> arrivals = new ArrayList<>();
         for (int i=0; i < services.size(); i++) {
@@ -42,6 +69,8 @@ public class ArrivalsFragment extends Fragment {
                 arrivals.add(service);
             }
         }
+
+        // Create the adapter and bind it to the RecyclerView.
         ArrivalsAdapter adapter = new ArrivalsAdapter(this.getContext(), arrivals);
         recyclerView.setAdapter(adapter);
     }
