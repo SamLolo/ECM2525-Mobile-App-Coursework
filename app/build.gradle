@@ -27,7 +27,7 @@ android {
         }
         buildTypes.each {
             it.buildConfigField 'String', 'ArrDepAPIKey', ArrDepAPIKey
-            it.buildConfigField 'String', 'ServicesAPIKey', ServicesAPIKey
+            it.buildConfigField 'String', 'StationsAPIKey', StationsAPIKey
         }
     }
 

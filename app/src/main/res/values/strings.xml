@@ -28,4 +28,5 @@
     <string name="directions">Get Directions</string>
     <string name="last_accessed">Last Accessed:</string>
     <string name="station_with_crs">%1$s (%2$s)</string>
+    <string name="brackets">(%1$s)</string>
 </resources>

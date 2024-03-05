@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -73,13 +75,20 @@ public class StationBoardActivity extends AppCompatActivity {
         ArrayList<ServiceData> services = getServices();
         DepartureAdapter adapter = new DepartureAdapter(this, services);
         recyclerView.setAdapter(adapter);
+
+        ImageButton info = findViewById(R.id.btn_station_info);
+        info.setOnClickListener(v -> {
+            Intent info_intent = new Intent(this, StationInfoActivity.class);
+            info_intent.putExtra("crs", crs);
+            startActivity(info_intent);
+        });
     }
 
     private ArrayList<ServiceData> getServices() {
 
         ArrayList<ServiceData> services = new ArrayList<>();
         ExecutorService pool = Executors.newFixedThreadPool(3);
-        Callable<JSONObject> callable = new StationBoardAPI(crs);
+        Callable<JSONObject> callable = new ArrivalDepartureAPI(crs);
         Future<JSONObject> future = pool.submit(callable);
         JSONObject json;
         try {

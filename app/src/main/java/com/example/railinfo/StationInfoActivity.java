@@ -3,9 +3,16 @@ package com.example.railinfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class StationInfoActivity extends AppCompatActivity {
 
@@ -20,10 +27,30 @@ public class StationInfoActivity extends AppCompatActivity {
             throw new RuntimeException("Missing station crs to load!");
         }
 
+        StationData station;
+        try {
+            ExecutorService pool = Executors.newFixedThreadPool(3);
+            Callable<StationData> callable = new StationInfoAPI(crs);
+            Future<StationData> future = pool.submit(callable);
+            station = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Toolbar toolbar = findViewById(R.id.station_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        TextView name_view = findViewById(R.id.station_name);
+        TextView crs_view = findViewById(R.id.station_crs);
+        TextView address_view = findViewById(R.id.station_address);
+
+        if (station != null) {
+            name_view.setText(station.getName());
+            crs_view.setText(getString(R.string.brackets, station.getCrs()));
+            address_view.setText(station.getAddress());
+        }
     }
 
     @Override
