@@ -13,7 +13,6 @@ import com.example.railinfo.data.api.ArrivalDepartureAPI;
 import com.example.railinfo.data.objects.ServiceData;
 import com.example.railinfo.fragments.ArrivalsFragment;
 import com.example.railinfo.fragments.DeparturesFragment;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
