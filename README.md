@@ -44,30 +44,28 @@ These can be obtained by signing up for an account with the [Rail Data Marketpla
 
 ### Layouts & Views
 
-I settled on using the ConstraintLayout. This proved to be the most versatile in terms of layout, aand since my views needed to display a range of data of unknown size at runtime, the layout needed to be flexible. I have also used AutoText scaling in some TextViews to make sure that the text is scaled down if it's too large rather than overlaping with other elements.
+I settled on using the ConstraintLayout. This proved to be the most versatile in terms of layout, and since my views needed to display data of unknown size at runtime, the layout needed to be flexible. I have also used AutoText scaling in some TextViews to make sure that the text is scaled down if it's too large rather than overlapping with other elements.
 
 ### Data Storage
 
 I am storing user data using SharedPreferences, due to its ease of use in Java. To store the data, I settled on a JSON format, stored as one string. This could then be parsed by a JSONObject, and since the size of the stored data is never about 8 entries, it won't slow down the device or application.
 
----
+### Activities
 
-My application design consists of 4 Activities. Below is some more information about the design choices made whilst implementing each activity:
-
-### [SelectStation](app/src/main/java/com/example/railinfo/SelectStationActivity.java)
+#### [SelectStation](app/src/main/java/com/example/railinfo/SelectStationActivity.java)
 
 This is the main launcher activity of the application. One of the challenges associated with this activity was implementing the AutoCompleteTextView. This is an editable text field with a dropdown menu where users can select their station. I decided to store the stations in JSON, under the assets directory, which is read when the application starts. Here, Computer Reservation Codes (or CRS for short) are mapped to the full names. Each CRS code identifies one station uniquely with 3 letters. I used the built-in ArrayAdapter for this, storing an ArrayList of Strings. This worked perfectly as I didn't want to extend any of the logic already implemented.
 
 SelectStation also implements an options menu, with an option to clear the user's search history. Placing this option inside a menu allowed me to keep the UI simple and clean. It also allows me to expand the range of options later down the line, for example, adding an ability to toggle between light and dark mode.
 
-### [StationBoard](app/src/main/java/com/example/railinfo/StationBoardActivity.java)
+#### [StationBoard](app/src/main/java/com/example/railinfo/StationBoardActivity.java)
 
-StationBoard uses fragments to display the 2 different RecyclerView's on the same page. This allows me to seperate the functionality, whilst making the transition between them seamless. The TabLayout provides a clean and intuitive method of switching between departures and arrivals. For navigating backwards, and to get more information about the station, I decided to use ImageButtons instead of icons on the Toolbar, since these are easier to implement. However, I would expand this to an action menu in the future.
+StationBoard uses fragments to display the 2 different RecyclerViews on the same page. This allows me to separate the functionality, whilst making the transition between them seamless. The TabLayout provides a clean and intuitive method of switching between departures and arrivals. For navigating backwards, and to get more information about the station, I decided to use ImageButtons instead of icons on the Toolbar, since these are easier to implement. However, I would expand this to an action menu in the future.
 
-### [StationInfo](app/src/main/java/com/example/railinfo/StationInfoActivity.java)
+#### [StationInfo](app/src/main/java/com/example/railinfo/StationInfoActivity.java)
 
-This is the simplest activity. It's main feature is a button that opens a maps app on the phone, allowing the user to get directions to the station in one click. I had originally planned to include more content here, however, didn't have the time to design the layout of the data.
+This is the simplest activity. Its main feature is a button that opens a maps app on the phone, allowing the user to get directions to the station in one click. I had originally planned to include more content here, however, didn't have the time to design the layout of the data.
 
-### [ServiceInfo](app/src/main/java/com/example/railinfo/ServiceInfoActivity.java)
+#### [ServiceInfo](app/src/main/java/com/example/railinfo/ServiceInfoActivity.java)
 
-ServiceInfo is the biggest and most complex activity. It provides a detailed view of the service, using as much information as possible from the National Rail API. It implements a nice RecyclerView which draws a simple map of the journey of the service, showing the stations it's calling at, the times the service is due at each station, and it's progress along the route. This activity can be used for both arrivals and departures.
+ServiceInfo is the biggest and most complex activity. It provides a detailed view of the service, using as much information as possible from the National Rail API. It implements a nice RecyclerView which draws a simple map of the journey of the service, showing the stations it's calling at, the times the service is due at each station, and its progress along the route. This activity can be used for both arrivals and departures.
