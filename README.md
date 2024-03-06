@@ -27,7 +27,13 @@ Everything needed to run the application should be present out of the box. For t
 
 If installing from the Github, users will need to provide the following API keys inside the `gradle.properties` file:
 
-```text
+```properties
+# Example gradle.properties file
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+android.useAndroidX=true
+android.nonTransitiveRClass=true
+
+# Add your own API keys here
 ArrDepAPIKey = <Key from https://raildata.org.uk/dataProduct/P-7c866984-8a7b-4272-a6f8-00b4aaf821fa/overview>
 StationsAPIKey = <Key from https://raildata.org.uk/dataProduct/P-88ffe920-471c-4fd9-8e0d-95d5b9b7a257/overview>
 ```
