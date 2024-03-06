@@ -198,22 +198,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/btn_refresh"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:backgroundTint="#00FFFFFF"
-        android:contentDescription="@string/refresh"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/service_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_popup_sync"
-        app:tint="#333232" />
-
     <TextView
         android:id="@+id/txt_from"
         android:layout_width="wrap_content"

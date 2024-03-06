@@ -45,8 +45,10 @@ public class StationInfoActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.station_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         TextView name_view = findViewById(R.id.station_name);
         TextView crs_view = findViewById(R.id.station_crs);

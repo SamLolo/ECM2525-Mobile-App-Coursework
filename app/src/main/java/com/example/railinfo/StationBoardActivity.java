@@ -60,6 +60,9 @@ public class StationBoardActivity extends AppCompatActivity {
             startActivity(info_intent);
         });
 
+        ImageButton back = findViewById(R.id.btn_back);
+        back.setOnClickListener(v -> finish());
+
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

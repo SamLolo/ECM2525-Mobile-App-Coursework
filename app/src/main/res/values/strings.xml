@@ -31,4 +31,6 @@
     <string name="brackets">(%1$s)</string>
     <string name="terminates_here">This service terminates here</string>
     <string name="to_with_destination">To %1$s</string>
+    <string name="go_back">Go back to the previous page.</string>
+    <string name="clear_history">Clear History</string>
 </resources>

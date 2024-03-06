@@ -1,6 +1,7 @@
 package com.example.railinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class SelectStationActivity extends AppCompatActivity {
     private final ArrayList<HistoryData> history = new ArrayList<>();
@@ -41,6 +46,12 @@ public class SelectStationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_station);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         stations = loadStations();
         List<String> names_list = getStationNames();
@@ -73,6 +84,34 @@ public class SelectStationActivity extends AppCompatActivity {
         }, 500);
 
         super.onRestart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Clear history if selected
+        if (item.getItemId() == R.id.clear_history) {
+            SharedPreferences pf = getSharedPreferences("history", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pf.edit();
+            editor.remove("history");
+            history.clear();
+            editor.commit();
+
+            // Reload the HistoryAdapter
+            hAdapter.notifyDataSetChanged();
+
+            // Make the "no history" text visible again.
+            TextView no_history = findViewById(R.id.txt_no_history);
+            no_history.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public JSONObject loadStations() {
@@ -122,7 +161,7 @@ public class SelectStationActivity extends AppCompatActivity {
 
     private String getCrs(String station) throws JSONException {
         JSONArray station_names = stations.toJSONArray(stations.names());
-        JSONObject inverted_stations = stations.names().toJSONObject(station_names);
+        JSONObject inverted_stations = Objects.requireNonNull(stations.names()).toJSONObject(station_names);
         return inverted_stations.getString(station);
     }
 
