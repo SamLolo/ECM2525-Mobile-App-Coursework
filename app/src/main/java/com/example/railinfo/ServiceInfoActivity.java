@@ -18,29 +18,52 @@ import com.example.railinfo.data.objects.ServiceData;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * An activity to display information about a given service.
+ * <p>
+ * Requires the data for the service to be passed through the intent, as a JSONObject,
+ * formatted as a string.
+ *
+ * @author Sam Townley
+ * @version 1.1
+ */
 public class ServiceInfoActivity extends AppCompatActivity {
 
+    /**
+     * Called when creating a new instance of this activity.
+     * <p>
+     * Sets the content view and configures the views.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}, otherwise null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Create the activity and set the content layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_info);
 
+        // Get service data from Intent and raise runtime error if it doesn't exist
         Intent intent = getIntent();
         String data = intent.getStringExtra("service");
         if (data == null) {
             throw new RuntimeException("Missing service data to load!");
         }
 
+        // Try to parse the data into a ServiceData object
         ServiceData service;
         try {
             service = new ServiceData(new JSONObject(data));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(service.getDestinationString());
 
+        // Display the content from the generated ServiceData object
         displayContent(service);
 
+        // Setup the toolbar as an ActionBar and enable the back button
         Toolbar toolbar = findViewById(R.id.service_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -49,15 +72,30 @@ public class ServiceInfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called whenever an item in the options menu is selected.
+     *
+     * @param item The menu item that was selected.
+     *
+     * @return False to allow normal menu processing to proceed or true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
+        // If the back arrow is clicked, finish up the activity and return the previous activity
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Helper function designed to populate the TextFields within the layout, as well
+     * as initialise the Calling Point RecyclerView.
+     * <p>
+     * Called once during {@link #onCreate(Bundle)}.
+     *
+     * @param service The ServiceData object to display data for.
+     */
     private void displayContent(ServiceData service) {
         // Get views ready to add content
         TextView departure = findViewById(R.id.service_departure);

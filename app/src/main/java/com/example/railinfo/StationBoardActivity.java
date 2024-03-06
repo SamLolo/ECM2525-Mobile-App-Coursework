@@ -29,12 +29,36 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * An activity to display the arrivals and departures at a specified station.
+ * <p>
+ * Requires a station CRS code and station name to passed through the intent in order
+ * to load correctly.
+ *
+ * @author Sam Townley
+ * @version 1.1
+ */
 public class StationBoardActivity extends AppCompatActivity {
 
+    /**
+     * The array of ServiceData objects to render on this page.
+     * Loaded during activity creation.
+     */
     private static ArrayList<ServiceData> services = new ArrayList<>();
 
+    /**
+     * Called when creating a new instance of this activity.
+     * <p>
+     * Sets the content view and configures the views.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@link #onSaveInstanceState}, otherwise null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Create the activity and set the content layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_board);
 
@@ -88,6 +112,12 @@ public class StationBoardActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds a new entry to the users search history.
+     * Called once when the activity is created for a new CRS code.
+     *
+     * @param crs The CRS code to add to the users history.
+     */
     private void addHistory(String crs) {
         SharedPreferences pf = getSharedPreferences("history", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pf.edit();
@@ -117,6 +147,12 @@ public class StationBoardActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     *
+     * @param crs The CRS code to load services for.
+     * @param station The name of the station this CRS code relates to.
+     * @return An ArrayList containing all services fetched from the API.
+     */
     public ArrayList<ServiceData> loadServices(String crs, String station) {
 
         ArrayList<ServiceData> services = new ArrayList<>();
@@ -139,6 +175,12 @@ public class StationBoardActivity extends AppCompatActivity {
         return services;
     }
 
+    /**
+     * Static method to get the services array held by this activity.
+     * Used by the fragments to get the services they need to display.
+     *
+     * @return An ArrayList of services that were loaded from the API.
+     */
     public static ArrayList<ServiceData> getServices() {
         return services;
     }
