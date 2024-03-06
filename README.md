@@ -54,20 +54,20 @@ For my app, I am storing user data using SharedPreferences, due to how easy it i
 
 My application design consists of 4 Activities. Below is some more information about the design choices made whilst implementing each activity:
 
-### [SelectStation](app/src/main/java/SelectStationActivity.java)
+### [SelectStation](app/src/main/java/com/example/railinfo/SelectStationActivity.java)
 
 This is the main launcher activity of the application, and provides the "home page". Here, users can search for their desired station or select one of their previously searched stations for quicker access. One of the challenges associated with this activity was implementing the AutoCompleteTextView. This is an editable text field with a drop down menu where users can select their chosen station. I decided to store the stations in JSON, under the assets directory, which is loaded when the application starts. Here, Computer Reservation Codes (or CRS for short) are mapped to their respective full station names. Each CRS code is unqiue and identifies one station through the use of 3 capital letters. These are the same codes you will see on standard railway tickets. For providing the names to the AutoCompleteTextView, I used an inbuilt ArrayAdapter storing an ArrayList of Strings. This worked perfectly for what I needed as I didn't want to extend any of the logic implemented by the ArrayAdapter already.
 
 SelectStation also implements an options menu, with an option to clear the user's search history. Placing this option inside a menu allowed me to keep the UI simple and clean. It also allows me to expand the range of options later down the line, for example, adding an ability to toggle betwene light and dark mode.
 
-### [StationBoard](app/src/main/java/StationBoardActivity.java)
+### [StationBoard](app/src/main/java/com/example/railinfo/StationBoardActivity.java)
 
 StationBoard uses fragments to display the 2 different RecyclerView's on the same page. This allows me to seperate the functionality, whislt making the transition between the seemless to the user. The TabLayout provides a clean and intuitive method of switching between departures and arrivals. For navigating backwards, and to get more information about the station, I decided to use ImageButtons instead of icons on the Toolbar, since these are easier to implement. However, I would expand this to an action menu in the future.
 
-### [StationInfo](app/src/main/java/StationInfoActivity.java)
+### [StationInfo](app/src/main/java/com/example/railinfo/StationInfoActivity.java)
 
 StationInfo is the simplest of the activities. It's main feature is a button that opens a maps app on the phone, allowing the user to get directions to the station in one click. I had originally planned to include more content here, however, didn't have the time to design the layout of the data.
 
-### [ServiceInfo](app/src/main/java/ServiceInfoActivity.java)
+### [ServiceInfo](app/src/main/java/com/example/railinfo/ServiceInfoActivity.java)
 
 ServiceInfo is the biggest and also most complex activity within the app. It provides a detailed view of the service, using as much information as possible from the National Rail API. It implements a nice RecyclerView which draws a simple map of the journey of the service, showing the stations it's calling at, the times the service is due at each station, and it's progress along the route. This activity can be used for both arrivals and departures.
