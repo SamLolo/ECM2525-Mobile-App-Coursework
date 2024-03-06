@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * is carried out within this class.
  *
  * @author Sam Townley
- * @version 1.0
+ * @version 1.1
  */
 public class DepartureAdapter extends RecyclerView.Adapter<ServiceHolder> {
 
