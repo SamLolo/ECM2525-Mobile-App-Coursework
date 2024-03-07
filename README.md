@@ -17,7 +17,7 @@ When using the application, users can search for any station currently open in t
 
 The user can then see the next 10* services at their chosen station, separated into departures and arrivals. From here, users can also access information about the station, which has the station address and a button to quickly get the fastest directions using Google maps. 
 
-Clicking on a service will bring up more information, including a map of the journey made by the service, and its progress. This is perfect for tracking where your delayed train is or for checking that a service they are about to get on is going to stop at their desired station, and what time it gets there.
+Clicking on a service will bring up more information, including a map of the journey made by the service, and its progress. This is perfect for tracking where your delayed train is, or for checking that a service they are about to get on is going to stop at their desired station, and what time it gets there.
 
 (*) *Due to API restrictions, services are only available for up to 2 hours from the current time, so there may be instances where there are less than 10 services available for quieter stations.*
 
@@ -73,8 +73,9 @@ ServiceInfo is the biggest and most complex activity. It provides a detailed vie
 ## Future Improvements
 
 Future features/improvements I'd like to see in the application are:
+
 - **Themes:** This would allow the user to toggle the app between light and dark mode, and I would make the app match the default mode on the phone.
-- **Live Updates:** I would like the departure boards to actively refresh themselves every 2 minutes, as well as having the option for the user to refresh these by clicking a button or using touch guestures. Currently, users need to return to the home screen and research for their station to get an updated view since content is fetched during activity creation.
+- **Live Updates:** I would like the departure boards to actively refresh themselves every 2 minutes, as well as having the option for the user to refresh these by clicking a button or using touch gestures. Currently, users need to return to the home screen and re-search for their station to get an updated view since content is fetched during activity creation.
 - **Full station info:** I would provide more detailed station information, such as ticket facilities and car parking/transport links.
 - **Filtering services:** There should be an option to filter the arrivals/departure boards by an origin or destination station or both. This could be done by long clicking a service on the boards.
 - **Location Usage:** I would like the user to be able to quickly access the services at their closest station by using the geolocation date of the phone on the SelectStationActivity.
