@@ -40,7 +40,7 @@ StationsAPIKey = <Key from https://raildata.org.uk/dataProduct/P-88ffe920-471c-4
 
 These can be obtained by signing up for an account with the [Rail Data Marketplace](https://raildata.org.uk/), which is a free service run by National Rail.
 
-## Design
+## Design & Challenges
 
 ### Layouts & Views
 
@@ -69,3 +69,12 @@ This is the simplest activity. Its main feature is a button that opens a maps ap
 #### [ServiceInfo](app/src/main/java/com/example/railinfo/ServiceInfoActivity.java)
 
 ServiceInfo is the biggest and most complex activity. It provides a detailed view of the service, using as much information as possible from the National Rail API. It implements a nice RecyclerView which draws a simple map of the journey of the service, showing the stations it's calling at, the times the service is due at each station, and its progress along the route. This activity can be used for both arrivals and departures.
+
+## Future Improvements
+
+Future features/improvements I'd like to see in the application are:
+- **Themes:** This would allow the user to toggle the app between light and dark mode, and I would make the app match the default mode on the phone.
+- **Live Updates:** I would like the departure boards to actively refresh themselves every 2 minutes, as well as having the option for the user to refresh these by clicking a button or using touch guestures. Currently, users need to return to the home screen and research for their station to get an updated view since content is fetched during activity creation.
+- **Full station info:** I would provide more detailed station information, such as ticket facilities and car parking/transport links.
+- **Filtering services:** There should be an option to filter the arrivals/departure boards by an origin or destination station or both. This could be done by long clicking a service on the boards.
+- **Location Usage:** I would like the user to be able to quickly access the services at their closest station by using the geolocation date of the phone on the SelectStationActivity.
